@@ -10,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { motion } from "framer-motion";
 import { BaseProps } from "@/types";
 
 interface ModeToggleProps extends BaseProps {
@@ -18,7 +17,7 @@ interface ModeToggleProps extends BaseProps {
 }
 
 export function ModeToggle({ className, align = "end" }: ModeToggleProps) {
-  const { setTheme, theme } = useTheme();
+  const { setTheme } = useTheme();
 
   const handleThemeChange = React.useCallback((newTheme: "light" | "dark" | "system") => {
     setTheme(newTheme);

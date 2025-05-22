@@ -12,7 +12,7 @@ export function Footer() {
             </Link>
             <p className="mt-4 text-muted-foreground max-w-md">
               Crafting intelligent web experiences with modern technologies and AI.
-              Let's build something extraordinary together.
+              Let&apos;s build something extraordinary together.
             </p>
           </div>
           

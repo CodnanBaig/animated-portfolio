@@ -71,7 +71,7 @@ export function ContactInfo() {
       <div className="mt-10">
         <h3 className="font-medium mb-3">Prefer chatting with AI first?</h3>
         <p className="text-muted-foreground text-sm">
-          I'm working on a chatbot integration that can answer your initial
+          I&apos;m working on a chatbot integration that can answer your initial
           questions. Coming soon!
         </p>
       </div>

@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -42,13 +42,16 @@ export function ContactForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Simulate API call
+    // Simulate API call with the form values
     setTimeout(() => {
+      // In a real app, we would send these values to an API endpoint
+      const { name, email } = values;
+      
       setIsSubmitting(false);
       form.reset();
       toast({
         title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        description: `Thank you ${name} for your message. I'll get back to you at ${email} soon.`,
       });
     }, 1500);
   }

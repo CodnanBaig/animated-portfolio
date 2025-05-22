@@ -25,6 +25,9 @@ export interface NavLinkProps {
 export interface ThemeProviderProps extends BaseProps {
   defaultTheme?: 'dark' | 'light' | 'system';
   storageKey?: string;
+  attribute?: string;
+  enableSystem?: boolean;
+  disableTransitionOnChange?: boolean;
 }
 
 // Footer types

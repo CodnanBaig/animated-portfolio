@@ -93,9 +93,9 @@ export function AIWorkflowSection() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold mb-6">
-            AI isn't replacing devs. 
+            AI isn&apos;t replacing devs. 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">
-              {" "}It's giving us superpowers.
+              {" "}It&apos;s giving us superpowers.
             </span>
           </motion.h2>
           <motion.p variants={itemVariants} className="text-muted-foreground text-lg">

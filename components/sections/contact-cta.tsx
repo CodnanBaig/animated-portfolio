@@ -66,7 +66,7 @@ export function ContactCTA() {
             variants={itemVariants}
             className="text-xl text-muted-foreground mb-8"
           >
-            Let's discuss how we can bring your ideas to life with the 
+            Let&apos;s discuss how we can bring your ideas to life with the 
             power of AI and modern web development.
           </motion.p>
           

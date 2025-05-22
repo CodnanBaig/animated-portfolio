@@ -59,10 +59,10 @@ export function AboutSection() {
               Transforming Ideas Into Reality With AI
             </h3>
             <p className="text-muted-foreground mb-6">
-              I'm a passionate web developer specializing in creating 
+              I&apos;m a passionate web developer specializing in creating 
               modern, efficient applications with the power of AI. My journey
               has taken me from frontend development to full-stack mastery,
-              and now I'm pioneering the integration of AI tools to supercharge
+              and now I&apos;m pioneering the integration of AI tools to supercharge
               the development workflow.
             </p>
             
@@ -115,10 +115,10 @@ export function AboutSection() {
                 <span className="text-purple-400">const</span> <span className="text-yellow-400">developer</span> = {"{"}
               </div>
               <div className="pl-4">
-                <span className="text-blue-400">skills</span>: [<span className="text-orange-400">'NextJS'</span>, <span className="text-orange-400">'React'</span>, <span className="text-orange-400">'AI Integration'</span>],
+                <span className="text-blue-400">skills</span>: [<span className="text-orange-400">&apos;NextJS&apos;</span>, <span className="text-orange-400">&apos;React&apos;</span>, <span className="text-orange-400">&apos;AI Integration&apos;</span>],
               </div>
               <div className="pl-4">
-                <span className="text-blue-400">passion</span>: <span className="text-orange-400">'Building the future with code and AI'</span>
+                <span className="text-blue-400">passion</span>: <span className="text-orange-400">&apos;Building the future with code and AI&apos;</span>
               </div>
               <div>{"}"}</div>
             </div>

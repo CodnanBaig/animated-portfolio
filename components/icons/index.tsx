@@ -1,6 +1,6 @@
 "use client";
 
-import { SiReact, SiNodeJs } from "react-icons/si";
+import { SiReact, SiNodedotjs } from "react-icons/si";
 import { 
   SiNextdotjs, 
   SiTypescript, 
@@ -13,7 +13,7 @@ import {
 // Export icons
 export { 
   SiReact,
-  SiNodeJs,
+  SiNodedotjs,
   SiNextdotjs, 
   SiTypescript, 
   SiTailwindcss, 

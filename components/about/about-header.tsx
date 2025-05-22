@@ -18,7 +18,7 @@ export function AboutHeader() {
           About <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">Me</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-6">
-          I'm a passionate developer focused on building AI-integrated web applications
+          I&apos;m a passionate developer focused on building AI-integrated web applications
           that solve real-world problems. With a blend of technical expertise and
           creative problem-solving, I craft digital experiences that stand out.
         </p>
@@ -69,12 +69,12 @@ export function AboutHeader() {
         
         <div className="absolute bottom-0 left-0 right-0 p-6">
           <div className="font-mono text-sm">
-            <div className="text-purple-400">// Skills</div>
+            <div className="text-purple-400">{/* Skills */}</div>
             <div className="text-white">const skills = [</div>
-            <div className="text-green-400 pl-4">'Frontend Development',</div>
-            <div className="text-green-400 pl-4">'AI Integration',</div>
-            <div className="text-green-400 pl-4">'UI/UX Design',</div>
-            <div className="text-green-400 pl-4">'Backend Architecture'</div>
+            <div className="text-green-400 pl-4">&apos;Frontend Development&apos;,</div>
+            <div className="text-green-400 pl-4">&apos;AI Integration&apos;,</div>
+            <div className="text-green-400 pl-4">&apos;UI/UX Design&apos;,</div>
+            <div className="text-green-400 pl-4">&apos;Backend Architecture&apos;</div>
             <div className="text-white">];</div>
           </div>
         </div>

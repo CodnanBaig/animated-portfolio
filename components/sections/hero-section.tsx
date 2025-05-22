@@ -101,7 +101,7 @@ export function HeroSection() {
               variants={itemVariants}
               className="text-lg md:text-xl mb-4 font-mono text-purple-500"
             >
-              Hi, I'm Adnan Baig _
+              Hi, I&apos;m Adnan Baig _
             </motion.p>
             
             <motion.h1 
