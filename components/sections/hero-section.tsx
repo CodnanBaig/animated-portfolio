@@ -1,18 +1,47 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, Download } from 'lucide-react';
+import { ChevronDown, Download, ArrowRight } from 'lucide-react';
+import { BackgroundEffects, FloatingParticles } from '@/components/ui/background-effects';
+import { PixelBlast } from '@/components/ui/pixel-blast';
+import { useMagnetic } from '@/components/ui/cursor';
 
 export function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+  
+  // Magnetic button refs
+  const primaryButtonRef = useMagnetic(0.5);
+  const secondaryButtonRef = useMagnetic(0.3);
+  
+  // Mouse tracking for enhanced interactions
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
   
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        mouseX.set((e.clientX - centerX) * 0.01);
+        mouseY.set((e.clientY - centerY) * 0.01);
+      }
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,53 +72,28 @@ export function HeroSection() {
   };
   
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-transparent z-0" />
+    <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Pixel Blast Background - Full Width */}
+      <PixelBlast 
+        intensity="high" 
+        fullWidth={true}
+        responsiveToMouse={true}
+        className="z-0"
+      />
       
-      {/* Animated grid lines */}
-      <div className="absolute inset-0 z-0">
-        <div className="w-full h-full grid grid-cols-6 opacity-5">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-full border-r border-primary/20" />
-          ))}
-        </div>
-        <div className="w-full h-full grid grid-rows-6 opacity-5">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="w-full border-b border-primary/20" />
-          ))}
-        </div>
-      </div>
+      {/* Reduced floating particles to not compete with pixel blast */}
+      <FloatingParticles count={8} />
       
-      {/* Glow effect */}
+      {/* Subtle gradient overlay to ensure text readability */}
       <motion.div 
-        className="absolute top-1/3 right-1/4 w-72 h-72 rounded-full bg-purple-500/20 blur-3xl z-0"
-        animate={{ 
-          scale: [1, 1.2, 1], 
-          opacity: [0.2, 0.3, 0.2] 
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity,
-          repeatType: "reverse" 
+        className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/20 z-[1]"
+        style={{
+          x: springX,
+          y: springY,
         }}
       />
       
-      <motion.div 
-        className="absolute bottom-1/3 left-1/4 w-96 h-96 rounded-full bg-teal-500/20 blur-3xl z-0"
-        animate={{ 
-          scale: [1, 1.2, 1], 
-          opacity: [0.2, 0.3, 0.2] 
-        }}
-        transition={{ 
-          duration: 12, 
-          repeat: Infinity,
-          repeatType: "reverse",
-          delay: 1 
-        }}
-      />
-      
-      <div className="container flex flex-col items-center text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center relative z-10">
         {isMounted && (
           <motion.div
             variants={containerVariants}
@@ -106,10 +110,27 @@ export function HeroSection() {
             
             <motion.h1 
               variants={itemVariants}
-              className="text-4xl md:text-6xl font-bold mb-6"
+              className="text-4xl md:text-6xl font-bold mb-6 relative"
+              style={{
+                x: springX,
+                y: springY,
+              }}
             >
               I build{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500">
+              <motion.span 
+                className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500"
+                animate={{
+                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+                style={{
+                  backgroundSize: '200% 200%',
+                }}
+              >
                 <Typewriter
                   words={[
                     'smart web apps',
@@ -126,7 +147,7 @@ export function HeroSection() {
                   deleteSpeed={70}
                   delaySpeed={1500}
                 />
-              </span>
+              </motion.span>
               <br />with code and AI.
             </motion.h1>
             
@@ -142,25 +163,95 @@ export function HeroSection() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Button asChild size="lg">
-                <Link href="/projects">View My Work</Link>
-              </Button>
-              <Button variant="outline" size="lg">
-                <Download className="mr-2 h-4 w-4" />
-                Download CV
-              </Button>
+              <motion.div
+                ref={primaryButtonRef}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+                  data-cursor="magnetic"
+                  data-cursor-text="Explore Projects"
+                >
+                  <Link href="/projects">
+                    <span className="relative z-10 flex items-center">
+                      View My Work
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                      }}
+                    />
+                  </Link>
+                </Button>
+              </motion.div>
+              
+              <motion.div
+                ref={secondaryButtonRef}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
+                  data-cursor="magnetic"
+                  data-cursor-text="Get Resume"
+                >
+                  <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
+                  <span>Download CV</span>
+                  <motion.div
+                    className="absolute inset-0 border-2 border-primary/30 rounded-lg"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      opacity: [0, 0.5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: 0.5,
+                    }}
+                  />
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
       </div>
       
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer group"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         onClick={scrollToNextSection}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        data-cursor="pointer"
+        data-cursor-text="Scroll Down"
       >
-        <ChevronDown className="h-10 w-10 text-muted-foreground/50" />
+        <motion.div className="relative">
+          <ChevronDown className="h-10 w-10 text-muted-foreground/50 group-hover:text-primary transition-colors" />
+          <motion.div
+            className="absolute inset-0 border-2 border-primary/30 rounded-full"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0, 0.6, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeOut',
+            }}
+          />
+        </motion.div>
       </motion.div>
     </section>
   );

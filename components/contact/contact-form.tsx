@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,6 +18,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { toast } from '@/hooks/use-toast';
+import { useMagnetic } from '@/components/ui/cursor';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -28,6 +29,14 @@ const formSchema = z.object({
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const magneticRef = useMagnetic(0.4);
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useTransform(mouseY, [-100, 100], [5, -5]);
+  const rotateY = useTransform(mouseX, [-100, 100], [-5, 5]);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,19 +48,39 @@ export function ContactForm() {
     }
   });
   
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    mouseX.set((e.clientX - centerX) * 0.1);
+    mouseY.set((e.clientY - centerY) * 0.1);
+  };
+  
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+  
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Simulate API call with the form values
+    // Simulate API call with enhanced feedback
     setTimeout(() => {
-      // In a real app, we would send these values to an API endpoint
       const { name, email } = values;
       
       setIsSubmitting(false);
-      form.reset();
+      setIsSuccess(true);
+      
+      // Reset success state after animation
+      setTimeout(() => {
+        setIsSuccess(false);
+        form.reset();
+      }, 3000);
+      
       toast({
-        title: "Message sent!",
-        description: `Thank you ${name} for your message. I'll get back to you at ${email} soon.`,
+        title: "Message sent! ✨",
+        description: `Thank you ${name}! I'll get back to you at ${email} soon.`,
       });
     }, 1500);
   }
@@ -61,9 +90,58 @@ export function ContactForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="p-6 rounded-lg border border-border bg-card"
+      className="relative p-8 rounded-xl border border-border bg-card/50 backdrop-blur-sm overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
     >
-      <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
+      {/* Animated background gradient */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-teal-500/5"
+        animate={{
+          opacity: focusedField ? 0.3 : 0.1,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-primary/30 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${20 + (i % 2) * 40}%`,
+            }}
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="relative z-10">
+        <motion.div
+          className="flex items-center gap-3 mb-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-teal-500 rounded-full" />
+          <h2 className="text-2xl font-bold">Send a Message</h2>
+          <Sparkles className="h-5 w-5 text-primary" />
+        </motion.div>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -72,13 +150,59 @@ export function ContactForm() {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Your name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      Name
+                      {focusedField === 'name' && (
+                        <motion.div
+                          className="w-2 h-2 bg-primary rounded-full"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        />
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <motion.div className="relative">
+                        <Input 
+                          placeholder="Your name" 
+                          {...field}
+                          onFocus={() => setFocusedField('name')}
+                          onBlur={() => setFocusedField(null)}
+                          className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
+                          data-cursor="text"
+                        />
+                        {focusedField === 'name' && (
+                          <motion.div
+                            className="absolute inset-0 border-2 border-primary/30 rounded-md pointer-events-none"
+                            animate={{
+                              borderColor: ['rgba(168, 85, 247, 0.3)', 'rgba(168, 85, 247, 0.6)', 'rgba(168, 85, 247, 0.3)'],
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          />
+                        )}
+                      </motion.div>
+                    </FormControl>
+                    <AnimatePresence>
+                      {form.formState.errors.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                        >
+                          <FormMessage className="flex items-center gap-1">
+                            <AlertCircle className="h-3 w-3" />
+                            {form.formState.errors.name.message}
+                          </FormMessage>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </FormItem>
+                </motion.div>
               )}
             />
             
@@ -86,13 +210,59 @@ export function ContactForm() {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="your.email@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      Email
+                      {focusedField === 'email' && (
+                        <motion.div
+                          className="w-2 h-2 bg-primary rounded-full"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        />
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <motion.div className="relative">
+                        <Input 
+                          placeholder="your.email@example.com" 
+                          {...field}
+                          onFocus={() => setFocusedField('email')}
+                          onBlur={() => setFocusedField(null)}
+                          className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
+                          data-cursor="text"
+                        />
+                        {focusedField === 'email' && (
+                          <motion.div
+                            className="absolute inset-0 border-2 border-primary/30 rounded-md pointer-events-none"
+                            animate={{
+                              borderColor: ['rgba(20, 184, 166, 0.3)', 'rgba(20, 184, 166, 0.6)', 'rgba(20, 184, 166, 0.3)'],
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          />
+                        )}
+                      </motion.div>
+                    </FormControl>
+                    <AnimatePresence>
+                      {form.formState.errors.email && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                        >
+                          <FormMessage className="flex items-center gap-1">
+                            <AlertCircle className="h-3 w-3" />
+                            {form.formState.errors.email.message}
+                          </FormMessage>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </FormItem>
+                </motion.div>
               )}
             />
           </div>
@@ -101,13 +271,59 @@ export function ContactForm() {
             control={form.control}
             name="subject"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Subject</FormLabel>
-                <FormControl>
-                  <Input placeholder="What is this regarding?" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">
+                    Subject
+                    {focusedField === 'subject' && (
+                      <motion.div
+                        className="w-2 h-2 bg-primary rounded-full"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      />
+                    )}
+                  </FormLabel>
+                  <FormControl>
+                    <motion.div className="relative">
+                      <Input 
+                        placeholder="What is this regarding?" 
+                        {...field}
+                        onFocus={() => setFocusedField('subject')}
+                        onBlur={() => setFocusedField(null)}
+                        className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
+                        data-cursor="text"
+                      />
+                      {focusedField === 'subject' && (
+                        <motion.div
+                          className="absolute inset-0 border-2 border-primary/30 rounded-md pointer-events-none"
+                          animate={{
+                            borderColor: ['rgba(59, 130, 246, 0.3)', 'rgba(59, 130, 246, 0.6)', 'rgba(59, 130, 246, 0.3)'],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      )}
+                    </motion.div>
+                  </FormControl>
+                  <AnimatePresence>
+                    {form.formState.errors.subject && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                      >
+                        <FormMessage className="flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {form.formState.errors.subject.message}
+                        </FormMessage>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </FormItem>
+              </motion.div>
             )}
           />
           
@@ -115,38 +331,126 @@ export function ContactForm() {
             control={form.control}
             name="message"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Message</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Tell me about your project or inquiry..." 
-                    className="min-h-32 resize-y"
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">
+                    Message
+                    {focusedField === 'message' && (
+                      <motion.div
+                        className="w-2 h-2 bg-primary rounded-full"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      />
+                    )}
+                  </FormLabel>
+                  <FormControl>
+                    <motion.div className="relative">
+                      <Textarea 
+                        placeholder="Tell me about your project or inquiry..." 
+                        className="min-h-32 resize-y transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
+                        {...field}
+                        onFocus={() => setFocusedField('message')}
+                        onBlur={() => setFocusedField(null)}
+                        data-cursor="text"
+                      />
+                      {focusedField === 'message' && (
+                        <motion.div
+                          className="absolute inset-0 border-2 border-primary/30 rounded-md pointer-events-none"
+                          animate={{
+                            borderColor: ['rgba(16, 185, 129, 0.3)', 'rgba(16, 185, 129, 0.6)', 'rgba(16, 185, 129, 0.3)'],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      )}
+                    </motion.div>
+                  </FormControl>
+                  <AnimatePresence>
+                    {form.formState.errors.message && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                      >
+                        <FormMessage className="flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {form.formState.errors.message.message}
+                        </FormMessage>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </FormItem>
+              </motion.div>
             )}
           />
           
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <span className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Sending...
-              </span>
-            ) : (
-              <span className="flex items-center">
-                <Send className="mr-2 h-4 w-4" />
-                Send Message
-              </span>
-            )}
-          </Button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            ref={magneticRef}
+          >
+            <Button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="w-full relative overflow-hidden group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+              data-cursor="magnetic"
+              data-cursor-text="Send Message"
+            >
+              <AnimatePresence mode="wait">
+                {isSubmitting ? (
+                  <motion.span
+                    key="submitting"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="flex items-center"
+                  >
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="mr-2 h-4 w-4 border-2 border-white/30 border-t-white rounded-full"
+                    />
+                    Sending...
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="send"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="flex items-center"
+                  >
+                    <motion.div
+                      whileHover={{ x: 5, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <Send className="mr-2 h-4 w-4" />
+                    </motion.div>
+                    Send Message
+                  </motion.span>
+                )}
+              </AnimatePresence>
+              
+              {/* Button glow effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20"
+                animate={{
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+              />
+            </Button>
+          </motion.div>
         </form>
       </Form>
+      </div>
     </motion.div>
   );
 }

@@ -7,13 +7,15 @@ import { ContactCTA } from '@/components/sections/contact-cta';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="w-full">
       <HeroSection />
-      <AboutSection />
-      <AIWorkflowSection />
-      <ProjectsPreview />
-      <ServicesSection />
-      <ContactCTA />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+        <AboutSection />
+        <AIWorkflowSection />
+        <ProjectsPreview />
+        <ServicesSection />
+        <ContactCTA />
+      </div>
     </div>
   );
 }

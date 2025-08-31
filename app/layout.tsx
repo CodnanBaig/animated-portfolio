@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { NavBar } from '@/components/nav-bar';
 import { Footer } from '@/components/footer';
+import { CustomCursor } from '@/components/ui/cursor';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -58,12 +59,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
+          <CustomCursor variant="target" trailEnabled={true} />
           <div className="flex flex-col min-h-screen">
             <NavBar />
-            <main className="flex-grow px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
-              <div className="mx-auto max-w-7xl">
-                {children}
-              </div>
+            <main className="flex-grow">
+              {children}
             </main>
             <Footer />
           </div>

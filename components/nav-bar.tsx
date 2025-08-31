@@ -40,7 +40,7 @@ export function NavBar({ className }: NavBarProps) {
   return (
     <motion.header 
       className={cn(
-        "fixed top-0 w-full px-4 z-40 transition-all duration-300",
+        "fixed top-0 w-full px-4 sm:px-6 lg:px-8 z-40 transition-all duration-300",
         isScrolled ? 
           "bg-background/80 backdrop-blur-lg border-b" : 
           "bg-transparent",
@@ -50,7 +50,7 @@ export function NavBar({ className }: NavBarProps) {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-bold text-xl">
           <Terminal className="h-6 w-6 text-purple-500" />
@@ -95,7 +95,7 @@ export function NavBar({ className }: NavBarProps) {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <nav className="container flex flex-col py-6">
+          <nav className="max-w-7xl mx-auto flex flex-col py-6 px-4 sm:px-6 lg:px-8">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.href}

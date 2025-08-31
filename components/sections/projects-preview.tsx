@@ -2,12 +2,11 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { InteractiveProjectCard } from '@/components/ui/interactive-project-card';
+import { BackgroundEffects } from '@/components/ui/background-effects';
 
 export function ProjectsPreview() {
   const ref = useRef(null);
@@ -57,8 +56,16 @@ export function ProjectsPreview() {
   ];
   
   return (
-    <section ref={ref} className="py-24 bg-background">
-      <div className="container">
+    <section ref={ref} className="py-24 bg-background relative overflow-hidden">
+      {/* Background Effects */}
+      <BackgroundEffects 
+        type="dot-pattern" 
+        intensity="subtle" 
+        responsiveToMouse={true}
+        className="opacity-30"
+      />
+      
+      <div className="container relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -78,38 +85,26 @@ export function ProjectsPreview() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {featuredProjects.map((project, i) => (
             <motion.div key={i} variants={itemVariants}>
-              <Link href={project.link} className="block h-full">
-                <Card className="overflow-hidden h-full transition-transform hover:translate-y-[-4px] hover:shadow-lg">
-                  <div className="aspect-video relative overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {project.tags.map((tag, j) => (
-                        <Badge key={j} variant="secondary">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-3">
-                      {project.description}
-                    </p>
-                    <div className="text-primary font-medium inline-flex items-center">
-                      View Project <ArrowRight className="ml-1 h-4 w-4" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+              <InteractiveProjectCard
+                project={{
+                  id: project.title.toLowerCase().replace(/\s+/g, '-'),
+                  title: project.title,
+                  description: project.description,
+                  image: project.image,
+                  categories: project.tags,
+                  technologies: project.tags,
+                  liveUrl: project.link,
+                  githubUrl: project.link,
+                }}
+                hoverEffect={i % 3 === 0 ? 'tilt' : i % 3 === 1 ? 'lift' : 'glow'}
+                imageReveal={i % 3 === 0 ? 'zoom' : i % 3 === 1 ? 'slide' : 'morph'}
+                interaction={i % 2 === 0 ? 'magnetic' : 'ripple'}
+                className="h-full"
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -120,9 +115,16 @@ export function ProjectsPreview() {
           animate={isInView ? "visible" : "hidden"}
           className="mt-12 text-center"
         >
-          <Button asChild size="lg">
+          <Button 
+            asChild 
+            size="lg" 
+            className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            data-cursor="magnetic"
+            data-cursor-text="View All Projects"
+          >
             <Link href="/projects">
-              View All Projects <ArrowRight className="ml-2 h-4 w-4" />
+              <span>View All Projects</span>
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </motion.div>
