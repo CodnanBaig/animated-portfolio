@@ -52,7 +52,7 @@ export function ServicesSection() {
   ];
   
   return (
-    <section ref={ref} className="py-24 bg-muted/50 relative overflow-hidden">
+    <section ref={ref} className="py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-white/5 bg-[size:50px_50px] z-0" />
       

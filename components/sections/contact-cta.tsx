@@ -57,7 +57,7 @@ export function ContactCTA() {
             className="text-4xl md:text-5xl font-bold mb-6"
           >
             Ready to Build Something
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
               {" "}Amazing?
             </span>
           </motion.h2>

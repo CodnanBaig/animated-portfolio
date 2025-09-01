@@ -69,7 +69,7 @@ export function AboutHeader() {
         
         <div className="absolute bottom-0 left-0 right-0 p-6">
           <div className="font-mono text-sm">
-            <div className="text-purple-400">{/* Skills */}</div>
+            <div className="text-red-500">{/* Skills */}</div>
             <div className="text-white">const skills = [</div>
             <div className="text-green-400 pl-4">&apos;Frontend Development&apos;,</div>
             <div className="text-green-400 pl-4">&apos;AI Integration&apos;,</div>

@@ -6,18 +6,12 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Download, ArrowRight } from 'lucide-react';
-import { BackgroundEffects, FloatingParticles } from '@/components/ui/background-effects';
+import { FloatingParticles } from '@/components/ui/background-effects';
 import { PixelBlast } from '@/components/ui/pixel-blast';
-import { useMagnetic } from '@/components/ui/cursor';
 
 export function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
-  
-  // Magnetic button refs
-  const primaryButtonRef = useMagnetic(0.5);
-  const secondaryButtonRef = useMagnetic(0.3);
   
   // Mouse tracking for enhanced interactions
   const mouseX = useMotionValue(0);
@@ -77,7 +71,6 @@ export function HeroSection() {
       <PixelBlast 
         intensity="high" 
         fullWidth={true}
-        responsiveToMouse={true}
         className="z-0"
       />
       
@@ -103,7 +96,7 @@ export function HeroSection() {
           >
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl mb-4 font-mono text-purple-500"
+              className="text-lg md:text-xl mb-4 font-mono text-red-500"
             >
               Hi, I&apos;m Adnan Baig _
             </motion.p>
@@ -118,7 +111,7 @@ export function HeroSection() {
             >
               I build{" "}
               <motion.span 
-                className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500"
+                className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600"
                 animate={{
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -164,16 +157,13 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <motion.div
-                ref={primaryButtonRef}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Button 
                   asChild 
                   size="lg" 
-                  className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
-                  data-cursor="magnetic"
-                  data-cursor-text="Explore Projects"
+                  className="group relative overflow-hidden bg-red-500 hover:bg-red-600 transition-all duration-300"
                 >
                   <Link href="/projects">
                     <span className="relative z-10 flex items-center">
@@ -181,7 +171,7 @@ export function HeroSection() {
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20"
+                      className="absolute inset-0 bg-red-400/20 opacity-0 group-hover:opacity-100"
                       animate={{
                         scale: [1, 1.2, 1],
                       }}
@@ -195,7 +185,6 @@ export function HeroSection() {
               </motion.div>
               
               <motion.div
-                ref={secondaryButtonRef}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -203,8 +192,6 @@ export function HeroSection() {
                   variant="outline" 
                   size="lg"
                   className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
-                  data-cursor="magnetic"
-                  data-cursor-text="Get Resume"
                 >
                   <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
                   <span>Download CV</span>
@@ -234,8 +221,6 @@ export function HeroSection() {
         onClick={scrollToNextSection}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        data-cursor="pointer"
-        data-cursor-text="Scroll Down"
       >
         <motion.div className="relative">
           <ChevronDown className="h-10 w-10 text-muted-foreground/50 group-hover:text-primary transition-colors" />

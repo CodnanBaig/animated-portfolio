@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Send, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
+import { Send, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,7 +18,6 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { toast } from '@/hooks/use-toast';
-import { useMagnetic } from '@/components/ui/cursor';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -29,9 +28,7 @@ const formSchema = z.object({
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const magneticRef = useMagnetic(0.4);
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -70,14 +67,6 @@ export function ContactForm() {
       const { name, email } = values;
       
       setIsSubmitting(false);
-      setIsSuccess(true);
-      
-      // Reset success state after animation
-      setTimeout(() => {
-        setIsSuccess(false);
-        form.reset();
-      }, 3000);
-      
       toast({
         title: "Message sent! ✨",
         description: `Thank you ${name}! I'll get back to you at ${email} soon.`,
@@ -174,7 +163,6 @@ export function ContactForm() {
                           onFocus={() => setFocusedField('name')}
                           onBlur={() => setFocusedField(null)}
                           className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
-                          data-cursor="text"
                         />
                         {focusedField === 'name' && (
                           <motion.div
@@ -234,7 +222,6 @@ export function ContactForm() {
                           onFocus={() => setFocusedField('email')}
                           onBlur={() => setFocusedField(null)}
                           className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
-                          data-cursor="text"
                         />
                         {focusedField === 'email' && (
                           <motion.div
@@ -295,7 +282,6 @@ export function ContactForm() {
                         onFocus={() => setFocusedField('subject')}
                         onBlur={() => setFocusedField(null)}
                         className="transition-all duration-300 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/10"
-                        data-cursor="text"
                       />
                       {focusedField === 'subject' && (
                         <motion.div
@@ -355,7 +341,6 @@ export function ContactForm() {
                         {...field}
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
-                        data-cursor="text"
                       />
                       {focusedField === 'message' && (
                         <motion.div
@@ -391,14 +376,11 @@ export function ContactForm() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            ref={magneticRef}
           >
             <Button 
               type="submit" 
-              disabled={isSubmitting} 
-              className="w-full relative overflow-hidden group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
-              data-cursor="magnetic"
-              data-cursor-text="Send Message"
+              disabled={isSubmitting || !form.formState.isValid}
+              className="relative w-full group overflow-hidden"
             >
               <AnimatePresence mode="wait">
                 {isSubmitting ? (
@@ -437,7 +419,7 @@ export function ContactForm() {
               
               {/* Button glow effect */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20"
+                className="absolute inset-0 bg-red-400/20 opacity-0 group-hover:opacity-100"
                 animate={{
                   scale: [1, 1.1, 1],
                 }}

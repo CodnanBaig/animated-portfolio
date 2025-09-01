@@ -34,7 +34,7 @@ export function JourneyTimeline() {
   return (
     <section ref={ref} className="mb-16">
       <h2 className="text-2xl font-bold mb-8">
-        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">Journey</span>
+        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">Journey</span>
       </h2>
       
       <div className="relative">

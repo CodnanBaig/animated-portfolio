@@ -56,7 +56,7 @@ export function ProjectsPreview() {
   ];
   
   return (
-    <section ref={ref} className="py-24 bg-background relative overflow-hidden">
+    <section ref={ref} className="py-24 relative overflow-hidden">
       {/* Background Effects */}
       <BackgroundEffects 
         type="dot-pattern" 
@@ -118,9 +118,7 @@ export function ProjectsPreview() {
           <Button 
             asChild 
             size="lg" 
-            className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-            data-cursor="magnetic"
-            data-cursor-text="View All Projects"
+            className="group bg-red-500 hover:bg-red-600"
           >
             <Link href="/projects">
               <span>View All Projects</span>

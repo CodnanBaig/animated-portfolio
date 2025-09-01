@@ -32,34 +32,34 @@ export function AIWorkflowSection() {
     {
       title: "Ideation",
       description: "Transform ideas into structured plans with AI assistance for research and concept refinement.",
-      icon: <Lightbulb className="h-8 w-8 text-yellow-500" />,
+      icon: <Lightbulb className="h-8 w-8 text-red-500" />,
       tools: ["Cursor AI", "ChatGPT"]
     },
     {
       title: "Rapid Prototyping",
       description: "Generate UI components and baseline code structure with AI-augmented development.",
-      icon: <Code className="h-8 w-8 text-blue-500" />,
+      icon: <Code className="h-8 w-8 text-foreground" />,
       tools: ["Cursor AI", "shadcn/ui", "GitHub Copilot"]
     },
     {
       title: "Backend Logic",
       description: "Build robust API endpoints and database schemas with AI-optimized code generation.",
-      icon: <Brain className="h-8 w-8 text-purple-500" />,
+      icon: <Brain className="h-8 w-8 text-foreground" />,
       tools: ["Mistral", "Ollama", "Next.js API Routes"]
     },
     {
       title: "Deployment",
       description: "Streamline testing, optimization, and deployment using AI-powered workflows.",
-      icon: <Rocket className="h-8 w-8 text-teal-500" />,
+      icon: <Rocket className="h-8 w-8 text-foreground" />,
       tools: ["Vercel", "GitHub Actions", "Mistral"]
     },
   ];
   
   return (
-    <section ref={ref} className="py-24 bg-muted/50 relative overflow-hidden">
+    <section ref={ref} className="py-24 relative overflow-hidden">
       {/* Animated background accent */}
       <motion.div 
-        className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-purple-600/20 blur-3xl z-0"
+        className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-red-500/10 blur-3xl z-0"
         animate={{ 
           x: [0, 50, 0], 
           opacity: [0.1, 0.2, 0.1] 
@@ -72,7 +72,7 @@ export function AIWorkflowSection() {
       />
       
       <motion.div 
-        className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-teal-600/20 blur-3xl z-0"
+        className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-muted-foreground/10 blur-3xl z-0"
         animate={{ 
           x: [0, -50, 0], 
           opacity: [0.1, 0.2, 0.1] 
@@ -94,7 +94,7 @@ export function AIWorkflowSection() {
         >
           <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold mb-6">
             AI isn&apos;t replacing devs. 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
               {" "}It&apos;s giving us superpowers.
             </span>
           </motion.h2>
@@ -138,7 +138,7 @@ export function AIWorkflowSection() {
                             <ul className="text-sm text-muted-foreground">
                               {step.tools.map((tool, j) => (
                                 <li key={j} className="flex items-center">
-                                  <ChevronRight className="h-3 w-3 mr-1 text-primary" />
+                                  <ChevronRight className="h-3 w-3 mr-1 text-red-500" />
                                   {tool}
                                 </li>
                               ))}

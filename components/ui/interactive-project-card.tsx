@@ -3,12 +3,10 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useDrag } from '@use-gesture/react';
-import { ArrowUpRight, ExternalLink, Github, Eye, Code } from 'lucide-react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { ArrowUpRight, Github, Eye } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useMagnetic } from '@/components/ui/cursor';
 
 interface Project {
   id: string;
@@ -46,13 +44,6 @@ export function InteractiveProjectCard({
   const rotateX = useTransform(y, [-100, 100], [30, -30]);
   const rotateY = useTransform(x, [-100, 100], [-30, 30]);
   
-  // Spring animations
-  const springX = useSpring(x, { stiffness: 300, damping: 30 });
-  const springY = useSpring(y, { stiffness: 300, damping: 30 });
-  
-  // Magnetic effect
-  const magneticRef = useMagnetic(0.4);
-  
   // Mouse tracking for parallax
   const handleMouseMove = (event: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -69,7 +60,6 @@ export function InteractiveProjectCard({
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     x.set(0);
     y.set(0);
   };
@@ -124,8 +114,8 @@ export function InteractiveProjectCard({
         return {
           rest: { rotateX: 0, rotateY: 0, z: 0 },
           hover: { 
-            rotateX: rotateX,
-            rotateY: rotateY,
+            rotateX: rotateX.get(),
+            rotateY: rotateY.get(),
             z: 100,
             transition: { type: 'spring', stiffness: 300, damping: 30 }
           }
@@ -135,8 +125,8 @@ export function InteractiveProjectCard({
         return {
           rest: { rotateX: 0, rotateY: 0, scale: 1 },
           hover: { 
-            rotateX: rotateX,
-            rotateY: rotateY,
+            rotateX: rotateX.get(),
+            rotateY: rotateY.get(),
             scale: 1.02,
             transition: { type: 'spring', stiffness: 300, damping: 30 }
           }
@@ -173,8 +163,6 @@ export function InteractiveProjectCard({
   const cardVariants = getHoverVariants();
   const imageVariants = getImageVariants();
 
-  const cardStyle = interaction === 'magnetic' ? { ref: magneticRef } : {};
-
   return (
     <motion.div
       ref={cardRef}
@@ -187,11 +175,8 @@ export function InteractiveProjectCard({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       style={{ 
-        transformStyle: 'preserve-3d',
-        ...cardStyle 
+        transformStyle: 'preserve-3d'
       }}
-      data-cursor="magnetic"
-      data-cursor-text="View Project"
     >
       {/* Ripple effects */}
       {ripples.map((ripple) => (
@@ -246,7 +231,6 @@ export function InteractiveProjectCard({
                 asChild
                 size="sm"
                 className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20"
-                data-cursor="pointer"
               >
                 <Link href={project.liveUrl} target="_blank">
                   <Eye className="h-4 w-4 mr-1" />
@@ -270,7 +254,6 @@ export function InteractiveProjectCard({
                 size="sm"
                 variant="outline"
                 className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20"
-                data-cursor="pointer"
               >
                 <Link href={project.githubUrl} target="_blank">
                   <Github className="h-4 w-4 mr-1" />
@@ -320,7 +303,7 @@ export function InteractiveProjectCard({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          {project.technologies.slice(0, 4).map((tech, index) => (
+          {project.technologies.slice(0, 4).map((tech) => (
             <motion.div
               key={tech}
               whileHover={{ scale: 1.05 }}
@@ -350,8 +333,6 @@ export function InteractiveProjectCard({
           <Button
             asChild
             className="w-full group/button"
-            data-cursor="magnetic"
-            data-cursor-text="Learn More"
           >
             <Link href={`/projects/${project.id}`}>
               <span>View Details</span>

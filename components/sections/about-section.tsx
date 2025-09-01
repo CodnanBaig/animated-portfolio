@@ -1,19 +1,16 @@
 "use client";
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
-import { motion, useInView, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Sparkles, Stars, Terminal, Lightbulb, Code, Zap, Brain, Rocket } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BackgroundEffects } from '@/components/ui/background-effects';
-import { useMagnetic } from '@/components/ui/cursor';
 
 export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
-  const magneticRef = useMagnetic(0.3);
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -40,28 +37,28 @@ export function AboutSection() {
       title: 'AI Integration Specialist',
       description: 'Leading AI-powered development workflows',
       icon: <Brain className="h-4 w-4" />,
-      color: 'from-purple-500 to-pink-500'
+      color: 'from-red-500 to-red-600'
     },
     {
       year: '2023',
       title: 'Full-Stack Mastery',
       description: 'Advanced React, Next.js, and backend technologies',
       icon: <Rocket className="h-4 w-4" />,
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-muted-foreground to-foreground'
     },
     {
       year: '2022',
       title: 'Modern Web Development',
       description: 'Specializing in responsive and performant web apps',
       icon: <Code className="h-4 w-4" />,
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-muted-foreground to-foreground'
     },
     {
       year: '2020',
       title: 'Development Journey Begins',
       description: 'Started with JavaScript and web fundamentals',
       icon: <Zap className="h-4 w-4" />,
-      color: 'from-orange-500 to-red-500'
+      color: 'from-muted-foreground to-foreground'
     }
   ];
 
@@ -70,30 +67,30 @@ export function AboutSection() {
       name: "Cursor AI", 
       icon: <Sparkles className="h-4 w-4" />,
       description: "AI-powered code editor",
-      color: "bg-gradient-to-r from-purple-500 to-pink-500"
+      color: "bg-red-500/20"
     },
     { 
       name: "Mistral", 
       icon: <Stars className="h-4 w-4" />,
       description: "Advanced language model",
-      color: "bg-gradient-to-r from-blue-500 to-cyan-500"
+      color: "bg-muted/50"
     },
     { 
       name: "Ollama", 
       icon: <Terminal className="h-4 w-4" />,
       description: "Local AI model runner",
-      color: "bg-gradient-to-r from-green-500 to-emerald-500"
+      color: "bg-muted/50"
     },
     { 
       name: "Next.js", 
       icon: <Lightbulb className="h-4 w-4" />,
       description: "React framework",
-      color: "bg-gradient-to-r from-orange-500 to-red-500"
+      color: "bg-muted/50"
     },
   ];
   
   return (
-    <section ref={ref} className="py-24 bg-background relative overflow-hidden">
+    <section ref={ref} className="py-24  relative overflow-hidden">
       {/* Enhanced Background Effects */}
       <BackgroundEffects 
         type="gradient-mesh" 
@@ -110,12 +107,12 @@ export function AboutSection() {
         >
           {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">
+            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
               About Me
             </h2>
             <h3 className="text-3xl md:text-5xl font-bold mb-6">
               Transforming Ideas Into Reality With{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-teal-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
                 AI
               </span>
             </h3>
@@ -129,13 +126,13 @@ export function AboutSection() {
             {/* Interactive Timeline */}
             <motion.div variants={itemVariants}>
               <h4 className="text-xl font-bold mb-8 flex items-center gap-2">
-                <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-teal-500 rounded-full" />
+                <div className="w-2 h-2 bg-red-500 rounded-full" />
                 Professional Journey
               </h4>
               
               <div className="relative">
                 {/* Timeline Line */}
-                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-blue-500 to-teal-500 opacity-30" />
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-red-500/30" />
                 
                 <div className="space-y-8">
                   {timeline.map((item, index) => (
@@ -151,7 +148,6 @@ export function AboutSection() {
                         }
                       }}
                       whileHover={{ x: 8 }}
-                      data-cursor="pointer"
                     >
                       {/* Timeline Dot */}
                       <motion.div 
@@ -193,11 +189,11 @@ export function AboutSection() {
               {/* Interactive Tools */}
               <div>
                 <h4 className="text-xl font-bold mb-6 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+                  <div className="w-2 h-2 bg-red-500 rounded-full" />
                   Tools I Master
                 </h4>
                 <div className="grid grid-cols-2 gap-3">
-                  {tools.map((tool, i) => (
+                  {tools.map((tool) => (
                     <motion.div
                       key={tool.name}
                       className="relative group cursor-pointer"
@@ -205,8 +201,6 @@ export function AboutSection() {
                       onMouseLeave={() => setHoveredTool(null)}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      data-cursor="magnetic"
-                      data-cursor-text={tool.description}
                     >
                       <div className={`absolute inset-0 ${tool.color} rounded-lg opacity-0 group-hover:opacity-20 transition-opacity blur-xl`} />
                       <Badge 
@@ -237,15 +231,13 @@ export function AboutSection() {
               {/* Enhanced Stats */}
               <div className="grid grid-cols-2 gap-4">
                 <motion.div
-                  ref={magneticRef}
                   whileHover={{ scale: 1.02 }}
-                  data-cursor="magnetic"
                 >
                   <Card className="relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <CardContent className="p-6 relative z-10">
                       <motion.h4 
-                        className="text-2xl font-bold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500"
+                        className="text-2xl font-bold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600"
                         animate={{
                           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
                         }}
@@ -265,13 +257,12 @@ export function AboutSection() {
                 
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  data-cursor="magnetic"
                 >
                   <Card className="relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-muted/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <CardContent className="p-6 relative z-10">
                       <motion.h4 
-                        className="text-2xl font-bold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-500"
+                        className="text-2xl font-bold mb-1 text-foreground"
                         animate={{
                           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
                         }}
@@ -298,21 +289,21 @@ export function AboutSection() {
               >
                 <div className="font-mono text-sm space-y-1">
                   <div className="text-muted-foreground">
-                    <span className="text-purple-400">const</span>{" "}
-                    <span className="text-yellow-400">developer</span>{" "}
+                    <span className="text-red-500">const</span>{" "}
+                    <span className="text-foreground">developer</span>{" "}
                     <span className="text-white">=</span>{" "}
                     <span className="text-white">{'{'}</span>
                   </div>
                   <div className="pl-4 text-muted-foreground">
-                    <span className="text-blue-400">passion</span>
+                    <span className="text-foreground">passion</span>
                     <span className="text-white">:</span>{" "}
-                    <span className="text-green-400">'Building the future'</span>
+                    <span className="text-red-500">'Building the future'</span>
                     <span className="text-white">,</span>
                   </div>
                   <div className="pl-4 text-muted-foreground">
-                    <span className="text-blue-400">focus</span>
+                    <span className="text-foreground">focus</span>
                     <span className="text-white">:</span>{" "}
-                    <span className="text-green-400">'AI + Code'</span>
+                    <span className="text-red-500">'AI + Code'</span>
                   </div>
                   <div className="text-white">{'};'}</div>
                 </div>

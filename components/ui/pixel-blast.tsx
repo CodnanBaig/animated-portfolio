@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
 interface PixelBlastProps {
@@ -9,15 +9,13 @@ interface PixelBlastProps {
   fullWidth?: boolean;
   className?: string;
   particleCount?: number;
-  responsiveToMouse?: boolean;
 }
 
-export function PixelBlast({
-  intensity = 'high',
-  fullWidth = true,
+export function PixelBlast({ 
+  intensity = 'medium', 
+  fullWidth = false, 
   className = '',
-  particleCount,
-  responsiveToMouse = true
+  particleCount
 }: PixelBlastProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -26,8 +24,21 @@ export function PixelBlast({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      mouseX.set((e.clientX - centerX) * 0.02);
+      mouseY.set((e.clientY - centerY) * 0.02);
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -45,31 +56,13 @@ export function PixelBlast({
   const getThemeColors = () => {
     const isDark = theme === 'dark';
     return {
-      primary: isDark ? 'rgba(168, 85, 247, 0.9)' : 'rgba(79, 70, 229, 0.8)',
-      secondary: isDark ? 'rgba(20, 184, 166, 0.7)' : 'rgba(16, 185, 129, 0.6)',
-      accent: isDark ? 'rgba(244, 63, 94, 0.6)' : 'rgba(239, 68, 68, 0.5)',
+      primary: isDark ? 'rgba(239, 68, 68, 0.9)' : 'rgba(239, 68, 68, 0.8)',
+      secondary: isDark ? 'rgba(156, 163, 175, 0.7)' : 'rgba(107, 114, 128, 0.6)',
+      accent: isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)',
       white: isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-      wave: isDark ? 'rgba(168, 85, 247, 0.4)' : 'rgba(79, 70, 229, 0.3)',
+      wave: isDark ? 'rgba(239, 68, 68, 0.4)' : 'rgba(239, 68, 68, 0.3)',
     };
   };
-
-  useEffect(() => {
-    if (!responsiveToMouse || !isMounted) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (!rect) return;
-
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
-      mouseX.set(x * 50);
-      mouseY.set(y * 50);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [responsiveToMouse, isMounted, mouseX, mouseY]);
 
   if (!isMounted) return null;
 

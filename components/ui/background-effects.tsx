@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
@@ -41,9 +41,9 @@ export function BackgroundEffects({
   const getThemeColors = () => {
     const isDark = theme === 'dark';
     return {
-      primary: isDark ? 'rgba(168, 85, 247, 0.1)' : 'rgba(79, 70, 229, 0.08)',
-      secondary: isDark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(16, 185, 129, 0.06)',
-      accent: isDark ? 'rgba(244, 63, 94, 0.05)' : 'rgba(239, 68, 68, 0.04)',
+      primary: isDark ? 'rgba(239, 68, 68, 0.1)' : 'rgba(239, 68, 68, 0.08)',
+      secondary: isDark ? 'rgba(156, 163, 175, 0.08)' : 'rgba(107, 114, 128, 0.06)',
+      accent: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)',
       grid: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.03)',
     };
   };
