@@ -25,7 +25,7 @@ export function AboutHeader() {
         
         <div className="flex flex-wrap gap-4 mb-8">
           <Button asChild>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="/Modern Resume (1).pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
               <Download className="mr-2 h-4 w-4" />
               Download Resume
             </a>

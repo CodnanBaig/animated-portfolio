@@ -6,6 +6,7 @@ import { NavBar } from '@/components/nav-bar';
 import { Footer } from '@/components/footer';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { BackgroundEffects } from '@/components/ui/background-effects';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -47,8 +48,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(
-        inter.className, 
-        'bg-background text-foreground min-h-screen',
+        inter.className,
+        'text-foreground min-h-screen',
         inter.variable,
         jetbrainsMono.variable
       )}>
@@ -58,12 +59,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <div className="flex flex-col min-h-screen">
-            <NavBar />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
+          <div className="relative min-h-screen">
+            {/* Global Reactbits Particles Background */}
+            <BackgroundEffects type="reactbits-particles" intensity="high" responsiveToMouse={false} className="z-[1]" />
+            <div className="relative z-[2] flex flex-col min-h-screen">
+              <NavBar />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+            </div>
           </div>
           <Toaster />
         </ThemeProvider>

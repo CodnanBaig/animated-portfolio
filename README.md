@@ -30,7 +30,7 @@ A modern, animated portfolio website built with Next.js 14, TypeScript, and Tail
 ### Prerequisites
 
 - Node.js 18.x or later
-- npm or yarn
+- pnpm
 
 ### Installation
 
@@ -42,16 +42,12 @@ A modern, animated portfolio website built with Next.js 14, TypeScript, and Tail
 
 2. Install dependencies:
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 3. Run the development server:
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   pnpm dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -96,10 +92,40 @@ animated-portfolio/
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+
+## MCP (ReactBits) Integration
+
+This project is configured to use the ReactBits MCP server for component discovery and assistance.
+
+Setup:
+
+1. Optionally create a `.env` with `GITHUB_TOKEN` to raise GitHub API limits.
+2. Cursor will read `.cursorrules` and start the server automatically.
+3. Or run the server manually:
+
+```bash
+pnpm mcp
+```
+
+Cursor configuration is in `.cursorrules`:
+
+```json
+{
+  "mcpServers": {
+    "reactbits": {
+      "command": "pnpm",
+      "args": ["mcp"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }
+    }
+  }
+}
+```
+
+Reference: ReactBits MCP getting started guide [`https://reactbits.dev/get-started/mcp`](https://reactbits.dev/get-started/mcp)
 
 ## Contributing
 

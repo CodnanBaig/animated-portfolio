@@ -6,7 +6,6 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InteractiveProjectCard } from '@/components/ui/interactive-project-card';
-import { BackgroundEffects } from '@/components/ui/background-effects';
 
 export function ProjectsPreview() {
   const ref = useRef(null);
@@ -57,13 +56,7 @@ export function ProjectsPreview() {
   
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
-      {/* Background Effects */}
-      <BackgroundEffects 
-        type="dot-pattern" 
-        intensity="subtle" 
-        responsiveToMouse={true}
-        className="opacity-30"
-      />
+      {/* Background handled globally via ReactBits particles */}
       
       <div className="container relative z-10">
         <motion.div

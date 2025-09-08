@@ -2,10 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import ReactBitsParticles from './reactbits-particles';
 import { useTheme } from 'next-themes';
 
 interface BackgroundEffectsProps {
-  type?: 'grid-motion' | 'dot-pattern' | 'gradient-mesh' | 'particles' | 'pixel-blast';
+  type?: 'grid-motion' | 'dot-pattern' | 'gradient-mesh' | 'particles' | 'pixel-blast' | 'aurora' | 'reactbits-particles';
   intensity?: 'subtle' | 'medium' | 'high';
   responsiveToMouse?: boolean;
   scrollParallax?: boolean;
@@ -259,6 +260,75 @@ export function BackgroundEffects({
     );
   };
 
+  const renderAurora = () => {
+    const colors = getThemeColors();
+    const intensityVal = getIntensityValue();
+    const blurBase = intensity === 'high' ? 'blur-3xl' : intensity === 'medium' ? 'blur-2xl' : 'blur-xl';
+
+    return (
+      <div className="absolute inset-0">
+        {/* Soft gradient veils inspired by aurora effects */}
+        <motion.div
+          className={`absolute -top-20 -left-10 w-[60%] h-[60%] ${blurBase}`}
+          style={{
+            background: `radial-gradient(60% 60% at 50% 50%, ${colors.primary} 0%, transparent 70%)`,
+            opacity: 0.6 * intensityVal,
+          }}
+          animate={{
+            x: [ -40, 20, -30 ],
+            y: [ 0, 30, -20 ],
+            rotate: [0, 10, -10, 0],
+          }}
+          transition={{ duration: 18, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
+        />
+
+        <motion.div
+          className={`absolute top-1/3 -right-10 w-[55%] h-[55%] ${blurBase}`}
+          style={{
+            background: `radial-gradient(60% 60% at 50% 50%, ${colors.secondary} 0%, transparent 70%)`,
+            opacity: 0.5 * intensityVal,
+            mixBlendMode: 'screen',
+          }}
+          animate={{
+            x: [ 30, -20, 40 ],
+            y: [ -10, 20, -15 ],
+            rotate: [0, -8, 8, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: 2 }}
+        />
+
+        <motion.div
+          className={`absolute bottom-0 left-1/4 w-[50%] h-[50%] ${blurBase}`}
+          style={{
+            background: `radial-gradient(60% 60% at 50% 50%, ${colors.accent} 0%, transparent 70%)`,
+            opacity: 0.45 * intensityVal,
+            mixBlendMode: 'overlay',
+          }}
+          animate={{
+            x: [ 0, 25, -15, 0 ],
+            y: [ 0, -20, 15, 0 ],
+            scale: [1, 1.05, 1],
+          }}
+          transition={{ duration: 16, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: 1 }}
+        />
+
+        {/* Subtle moving noise/veil */}
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(120% 80% at 50% 50%, ${colors.primary} 0%, transparent 70%)`,
+            opacity: 0.15 * intensityVal,
+          }}
+          animate={{
+            x: [0, 10, -10, 0],
+            y: [0, -8, 8, 0],
+          }}
+          transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+    );
+  };
+
   const renderPixelBlast = () => {
     const colors = getThemeColors();
     const intensityVal = getIntensityValue();
@@ -436,6 +506,17 @@ export function BackgroundEffects({
         return renderParticles();
       case 'pixel-blast':
         return renderPixelBlast();
+      case 'aurora':
+        return renderAurora();
+      case 'reactbits-particles': {
+        const densityByIntensity = intensity === 'high' ? 0.8 : intensity === 'medium' ? 0.5 : 0.3;
+        const connectByIntensity = intensity === 'high' ? 150 : intensity === 'medium' ? 130 : 110;
+        return (
+          <div className="absolute inset-0">
+            <ReactBitsParticles density={densityByIntensity} connectDistance={connectByIntensity} />
+          </div>
+        );
+      }
       case 'grid-motion':
       default:
         return renderGridMotion();

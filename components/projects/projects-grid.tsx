@@ -11,8 +11,8 @@ export function ProjectsGrid() {
     triggerOnce: true,
   });
   
-  // Show only the resumeai project
-  const filteredProjects = projectsData.filter(project => project.id === "resumai");
+  // Show all projects
+  const filteredProjects = projectsData;
   
   const containerVariants = {
     hidden: { opacity: 0 },

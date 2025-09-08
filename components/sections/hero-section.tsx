@@ -7,7 +7,6 @@ import { Typewriter } from 'react-simple-typewriter';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Download, ArrowRight } from 'lucide-react';
 import { FloatingParticles } from '@/components/ui/background-effects';
-import { PixelBlast } from '@/components/ui/pixel-blast';
 
 export function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
@@ -67,12 +66,7 @@ export function HeroSection() {
   
   return (
     <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Pixel Blast Background - Full Width */}
-      <PixelBlast 
-        intensity="high" 
-        fullWidth={true}
-        className="z-0"
-      />
+      {/* Background now applied globally in layout; keep hero clean */}
       
       {/* Reduced floating particles to not compete with pixel blast */}
       <FloatingParticles count={8} />
@@ -192,9 +186,12 @@ export function HeroSection() {
                   variant="outline" 
                   size="lg"
                   className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
+                  asChild
                 >
-                  <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                  <span>Download CV</span>
+                  <a href="/Modern Resume (1).pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
+                    <span>Download CV</span>
+                  </a>
                   <motion.div
                     className="absolute inset-0 border-2 border-primary/30 rounded-lg"
                     animate={{

@@ -5,7 +5,6 @@ import { motion, useInView } from 'framer-motion';
 import { Sparkles, Stars, Terminal, Lightbulb, Code, Zap, Brain, Rocket } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { BackgroundEffects } from '@/components/ui/background-effects';
 
 export function AboutSection() {
   const ref = useRef(null);
@@ -91,13 +90,7 @@ export function AboutSection() {
   
   return (
     <section ref={ref} className="py-24  relative overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <BackgroundEffects 
-        type="gradient-mesh" 
-        intensity="subtle" 
-        responsiveToMouse={true}
-        className="opacity-20"
-      />
+      {/* Background handled globally via ReactBits particles */}
       
       <div className="container relative z-10">
         <motion.div
