@@ -182,18 +182,20 @@ export function HeroSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
-                  asChild
-                >
-                  <a href="/Modern Resume (1).pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                    <span>Download CV</span>
-                  </a>
+                <div className="relative">
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
+                    asChild
+                  >
+                    <a href="/Modern Resume (1).pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                      <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
+                      <span>Download CV</span>
+                    </a>
+                  </Button>
                   <motion.div
-                    className="absolute inset-0 border-2 border-primary/30 rounded-lg"
+                    className="absolute inset-0 border-2 border-primary/30 rounded-lg pointer-events-none"
                     animate={{
                       scale: [1, 1.05, 1],
                       opacity: [0, 0.5, 0],
@@ -204,7 +206,7 @@ export function HeroSection() {
                       delay: 0.5,
                     }}
                   />
-                </Button>
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>

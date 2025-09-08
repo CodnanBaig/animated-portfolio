@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "reactbits": {
+      "command": "pnpm",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+
