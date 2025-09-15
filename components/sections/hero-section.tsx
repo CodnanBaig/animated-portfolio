@@ -189,7 +189,7 @@ export function HeroSection() {
                     className="group relative overflow-hidden border-2 hover:bg-primary/5 transition-all duration-300"
                     asChild
                   >
-                    <a href="/Modern Resume (1).pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                    <a href="/Adnan-Baig-Resume.pdf" download="Adnan_Baig_Resume.pdf" target="_blank" rel="noopener noreferrer">
                       <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
                       <span>Download CV</span>
                     </a>

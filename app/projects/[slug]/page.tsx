@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink, Github, ArrowLeft, FileText, Sparkles, Code, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 interface ProjectPageProps {
   params: {
@@ -76,28 +76,32 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <Button asChild size="lg" className="bg-red-500 hover:bg-red-600">
-              <a 
-                href={project.liveUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Live Demo
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild className="border-red-500/30 hover:border-red-500 hover:bg-red-500/10">
-              <a 
-                href={project.githubUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-red-500"
-              >
-                <Github className="w-4 h-4" />
-                View Code
-              </a>
-            </Button>
+            {project.liveUrl && (
+              <Button asChild size="lg" className="bg-red-500 hover:bg-red-600">
+                <a 
+                  href={project.liveUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Live Demo
+                </a>
+              </Button>
+            )}
+            {project.githubUrl && !project.categories.includes('Professional') && (
+              <Button variant="outline" size="lg" asChild className="border-red-500/30 hover:border-red-500 hover:bg-red-500/10">
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-red-500"
+                >
+                  <Github className="w-4 h-4" />
+                  View Code
+                </a>
+              </Button>
+            )}
           </div>
         </div>
 
@@ -165,16 +169,24 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               </CardHeader>
               <CardContent>
                 <div className="prose prose-gray dark:prose-invert max-w-none">
-                  <p className="text-base leading-relaxed text-foreground">
-                    <strong>{project.title}</strong> is an innovative solution built with cutting-edge technologies. 
-                    This project demonstrates expertise in <span className="font-semibold text-red-500">{project.technologies.join(', ')}</span> and showcases advanced development practices.
-                  </p>
-                  
-                  <p className="text-base leading-relaxed text-foreground mt-4">
-                    The project leverages <strong>{project.technologies[0]}</strong> as the primary framework, 
-                    seamlessly integrated with {project.technologies.slice(1).join(', ')} to create a robust and 
-                    feature-rich application that meets modern web standards.
-                  </p>
+                  {project.detailedDescription ? (
+                    <p className="text-base leading-relaxed text-foreground">
+                      {project.detailedDescription}
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-base leading-relaxed text-foreground">
+                        <strong>{project.title}</strong> is an innovative solution built with cutting-edge technologies. 
+                        This project demonstrates expertise in <span className="font-semibold text-red-500">{project.technologies.join(', ')}</span> and showcases advanced development practices.
+                      </p>
+                      
+                      <p className="text-base leading-relaxed text-foreground mt-4">
+                        The project leverages <strong>{project.technologies[0]}</strong> as the primary framework, 
+                        seamlessly integrated with {project.technologies.slice(1).join(', ')} to create a robust and 
+                        feature-rich application that meets modern web standards.
+                      </p>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -190,22 +202,33 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-foreground">AI-powered functionality</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-foreground">Responsive design</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-foreground">Modern UI/UX</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-foreground">Performance optimized</span>
-                    </li>
+                    {project.keyFeatures ? (
+                      project.keyFeatures.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-foreground">{feature}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <>
+                        <li className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-foreground">AI-powered functionality</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-foreground">Responsive design</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-foreground">Modern UI/UX</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-foreground">Performance optimized</span>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </CardContent>
               </Card>
@@ -214,17 +237,26 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-red-500">
                     <Code className="w-5 h-5" />
-                    Technical Stack
+                    Technical Highlights
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {project.technologies.map((tech) => (
-                      <div key={tech} className="flex items-center gap-3 p-2 bg-red-500/5 rounded-lg">
-                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                        <span className="text-sm font-medium text-foreground">{tech}</span>
-                      </div>
-                    ))}
+                    {project.technicalHighlights ? (
+                      project.technicalHighlights.map((highlight) => (
+                        <div key={highlight} className="flex items-center gap-3 p-2 bg-red-500/5 rounded-lg">
+                          <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <span className="text-sm font-medium text-foreground">{highlight}</span>
+                        </div>
+                      ))
+                    ) : (
+                      project.technologies.map((tech) => (
+                        <div key={tech} className="flex items-center gap-3 p-2 bg-red-500/5 rounded-lg">
+                          <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <span className="text-sm font-medium text-foreground">{tech}</span>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -241,28 +273,32 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             Explore the live demo to see it in action, or dive into the source code to understand the implementation details.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild className="bg-red-500 hover:bg-red-600 min-w-[160px]">
-              <a 
-                href={project.liveUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
-              >
-                <ExternalLink className="w-4 h-4" />
-                View Live Demo
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild className="border-red-500/30 hover:border-red-500 hover:bg-red-500/10 min-w-[160px]">
-              <a 
-                href={project.githubUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-red-500"
-              >
-                <Github className="w-4 h-4" />
-                Explore Code
-              </a>
-            </Button>
+            {project.liveUrl && (
+              <Button size="lg" asChild className="bg-red-500 hover:bg-red-600 min-w-[160px]">
+                <a 
+                  href={project.liveUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View Live Demo
+                </a>
+              </Button>
+            )}
+            {project.githubUrl && !project.categories.includes('Professional') && (
+              <Button variant="outline" size="lg" asChild className="border-red-500/30 hover:border-red-500 hover:bg-red-500/10 min-w-[160px]">
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-red-500"
+                >
+                  <Github className="w-4 h-4" />
+                  Explore Code
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>

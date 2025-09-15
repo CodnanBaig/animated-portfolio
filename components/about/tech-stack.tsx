@@ -2,10 +2,11 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   SiNextdotjs, SiReact, SiNodedotjs, SiTypescript, 
-  SiTailwindcss, SiMongodb, SiOpenai, SiVercel
+  SiTailwindcss, SiMongodb, SiMysql, SiPrisma, SiOpenai, SiVercel
 } from '@/components/icons';
 
 // Define tech stacks
@@ -23,7 +24,9 @@ const techStacks = [
     category: "Backend",
     technologies: [
       { name: "Node.js", icon: <SiNodedotjs className="h-8 w-8 text-green-600" /> },
-      { name: "MongoDB", icon: <SiMongodb className="h-8 w-8 text-green-500" /> }
+      { name: "MongoDB", icon: <SiMongodb className="h-8 w-8 text-green-500" /> },
+      { name: "MySQL", icon: <SiMysql className="h-8 w-8 text-blue-600" /> },
+      { name: "Prisma", icon: <SiPrisma className="h-8 w-8 text-gray-700" /> }
     ]
   },
   {
@@ -31,7 +34,7 @@ const techStacks = [
     technologies: [
       { name: "OpenAI", icon: <SiOpenai className="h-8 w-8" /> },
       { name: "Ollama", icon: <span className="font-mono text-xl">🦙</span> },
-      { name: "Cursor AI", icon: <span className="font-mono text-xl">⌨️</span> },
+      { name: "Cursor AI", icon: <Image src="https://img.icons8.com/?size=512&id=DiGZkjCzyZXn&format=png" alt="Cursor AI" width={32} height={32} className="h-8 w-8" /> },
       { name: "Vercel", icon: <SiVercel className="h-8 w-8" /> }
     ]
   }
@@ -72,14 +75,14 @@ export function TechStack() {
         animate={isInView ? "visible" : "hidden"}
         className="grid grid-cols-1 md:grid-cols-3 gap-8"
       >
-        {techStacks.map((stack, i) => (
-          <motion.div key={i} variants={itemVariants}>
+        {techStacks.map((stack) => (
+          <motion.div key={stack.category} variants={itemVariants}>
             <Card className="h-full">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-6">{stack.category}</h3>
                 <div className="grid grid-cols-2 gap-6">
-                  {stack.technologies.map((tech, j) => (
-                    <div key={j} className="flex flex-col items-center text-center">
+                  {stack.technologies.map((tech) => (
+                    <div key={tech.name} className="flex flex-col items-center text-center">
                       <div className="mb-2 flex justify-center items-center h-12">
                         {tech.icon}
                       </div>

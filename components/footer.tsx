@@ -51,12 +51,8 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="border-t mt-6 sm:mt-8 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs sm:text-sm text-muted-foreground">
+        <div className="border-t mt-6 sm:mt-8 pt-6 sm:pt-8 text-xs sm:text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Adnan Baig. All rights reserved.</p>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
-          </div>
         </div>
       </div>
     </footer>

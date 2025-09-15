@@ -32,31 +32,38 @@ export function AboutSection() {
 
   const timeline = [
     {
-      year: '2024',
-      title: 'AI Integration Specialist',
-      description: 'Leading AI-powered development workflows',
+      year: '2025',
+      title: 'AI-Enhanced Development',
+      description: 'Leveraging AI tools to accelerate development processes',
       icon: <Brain className="h-4 w-4" />,
       color: 'from-red-500 to-red-600'
     },
     {
-      year: '2023',
-      title: 'Full-Stack Mastery',
-      description: 'Advanced React, Next.js, and backend technologies',
+      year: '2024',
+      title: 'Team Lead & Project Manager',
+      description: 'Managing teams and taking ownership of entire projects',
       icon: <Rocket className="h-4 w-4" />,
       color: 'from-muted-foreground to-foreground'
     },
     {
-      year: '2022',
-      title: 'Modern Web Development',
-      description: 'Specializing in responsive and performant web apps',
+      year: '2023',
+      title: 'Full Stack Developer',
+      description: 'Completed Masai School course and grew into comprehensive full stack development',
       icon: <Code className="h-4 w-4" />,
       color: 'from-muted-foreground to-foreground'
     },
     {
-      year: '2020',
-      title: 'Development Journey Begins',
-      description: 'Started with JavaScript and web fundamentals',
+      year: '2022',
+      title: 'Frontend Developer',
+      description: 'Specialized in Angular and building interactive user interfaces',
       icon: <Zap className="h-4 w-4" />,
+      color: 'from-muted-foreground to-foreground'
+    },
+    {
+      year: '2021',
+      title: 'Introduction to Coding',
+      description: 'Discovered programming with Python, transitioning from acting and music',
+      icon: <Lightbulb className="h-4 w-4" />,
       color: 'from-muted-foreground to-foreground'
     }
   ];
@@ -69,21 +76,21 @@ export function AboutSection() {
       color: "bg-red-500/20"
     },
     { 
-      name: "Mistral", 
+      name: "ChatGPT", 
       icon: <Stars className="h-4 w-4" />,
-      description: "Advanced language model",
+      description: "AI assistant for development",
       color: "bg-muted/50"
     },
     { 
-      name: "Ollama", 
-      icon: <Terminal className="h-4 w-4" />,
-      description: "Local AI model runner",
-      color: "bg-muted/50"
-    },
-    { 
-      name: "Next.js", 
+      name: "NextJS", 
       icon: <Lightbulb className="h-4 w-4" />,
       description: "React framework",
+      color: "bg-muted/50"
+    },
+    { 
+      name: "NodeJS", 
+      icon: <Terminal className="h-4 w-4" />,
+      description: "Backend runtime",
       color: "bg-muted/50"
     },
   ];
@@ -144,7 +151,7 @@ export function AboutSection() {
                     >
                       {/* Timeline Dot */}
                       <motion.div 
-                        className={`relative z-10 w-12 h-12 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg`}
+                        className={`relative z-10 w-12 h-12 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-black dark:text-white shadow-lg`}
                         whileHover={{ scale: 1.1 }}
                         animate={{
                           boxShadow: [
@@ -164,7 +171,7 @@ export function AboutSection() {
                       {/* Timeline Content */}
                       <div className="flex-1 bg-card/50 backdrop-blur-sm rounded-lg p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`px-2 py-1 text-xs font-mono bg-gradient-to-r ${item.color} text-white rounded`}>
+                          <span className={`px-2 py-1 text-xs font-mono bg-gradient-to-r ${item.color} text-black dark:text-white rounded`}>
                             {item.year}
                           </span>
                         </div>
@@ -241,7 +248,7 @@ export function AboutSection() {
                         }}
                         style={{ backgroundSize: '200% 200%' }}
                       >
-                        5+
+                        4+
                       </motion.h4>
                       <p className="text-muted-foreground text-sm">Years of experience</p>
                     </CardContent>
@@ -267,7 +274,7 @@ export function AboutSection() {
                         }}
                         style={{ backgroundSize: '200% 200%' }}
                       >
-                        50+
+                        40+
                       </motion.h4>
                       <p className="text-muted-foreground text-sm">Projects completed</p>
                     </CardContent>

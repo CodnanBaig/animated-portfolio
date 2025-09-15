@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { InteractiveProjectCard } from '@/components/ui/interactive-project-card';
+import { ProjectCardActions } from '@/components/ui/project-card-actions';
+import { projectsData } from '@/lib/projects-data';
+import type { Project } from '@/types';
 
 export function ProjectsPreview() {
   const ref = useRef(null);
@@ -30,29 +32,9 @@ export function ProjectsPreview() {
     },
   };
   
-  const featuredProjects = [
-    {
-      title: "ResumAI",
-      description: "AI-powered resume builder that generates tailored content and formats based on job descriptions.",
-      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg",
-      tags: ["AI", "Next.js", "OpenAI API"],
-      link: "/projects/resumai"
-    },
-    {
-      title: "CodeBuddy",
-      description: "Pair programming assistant using Ollama to provide real-time code suggestions and refactoring.",
-      image: "https://images.pexels.com/photos/7367/startup-photos.jpg",
-      tags: ["AI", "Ollama", "React"],
-      link: "/projects/codebuddy"
-    },
-    {
-      title: "DataViz Dashboard",
-      description: "Real-time data visualization platform with AI-powered insights and trend analysis.",
-      image: "https://images.pexels.com/photos/669996/pexels-photo-669996.jpeg",
-      tags: ["Data", "Charts", "Next.js"],
-      link: "/projects/dataviz"
-    }
-  ];
+  // Use actual project data. If any are marked as featured, prefer them; otherwise first three.
+  const featuredProjects = projectsData.filter((p: Project) => p.featured);
+  const displayProjects: Project[] = featuredProjects.length > 0 ? featuredProjects.slice(0, 3) : projectsData.slice(0, 3);
   
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
@@ -80,23 +62,19 @@ export function ProjectsPreview() {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {featuredProjects.map((project, i) => (
-            <motion.div key={i} variants={itemVariants}>
-              <InteractiveProjectCard
+          {displayProjects.map((project: Project) => (
+            <motion.div key={project.id} variants={itemVariants}>
+              <ProjectCardActions
                 project={{
-                  id: project.title.toLowerCase().replace(/\s+/g, '-'),
+                  id: project.id,
                   title: project.title,
                   description: project.description,
                   image: project.image,
-                  categories: project.tags,
-                  technologies: project.tags,
-                  liveUrl: project.link,
-                  githubUrl: project.link,
+                  categories: project.categories ?? [],
+                  technologies: project.technologies,
+                  liveUrl: project.liveUrl,
+                  githubUrl: project.githubUrl,
                 }}
-                hoverEffect={i % 3 === 0 ? 'tilt' : i % 3 === 1 ? 'lift' : 'glow'}
-                imageReveal={i % 3 === 0 ? 'zoom' : i % 3 === 1 ? 'slide' : 'morph'}
-                interaction={i % 2 === 0 ? 'magnetic' : 'ripple'}
-                className="h-full"
               />
             </motion.div>
           ))}

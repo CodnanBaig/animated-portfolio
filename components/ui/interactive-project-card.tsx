@@ -240,7 +240,7 @@ export function InteractiveProjectCard({
             </motion.div>
           )}
           
-          {project.githubUrl && (
+          {project.githubUrl && !project.categories.includes('Professional') && (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ 
@@ -332,9 +332,9 @@ export function InteractiveProjectCard({
         >
           <Button
             asChild
-            className="w-full group/button"
+            className="w-full group/button cursor-pointer"
           >
-            <Link href={`/projects/${project.id}`}>
+            <Link href={`/projects/${project.id}`} className="cursor-pointer">
               <span>View Details</span>
               <ArrowUpRight className="h-4 w-4 ml-2 group-hover/button:translate-x-1 group-hover/button:-translate-y-1 transition-transform" />
             </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { InteractiveProjectCard } from '@/components/ui/interactive-project-card';
+import { ProjectCardActions } from '@/components/ui/project-card-actions';
 import { projectsData } from '@/lib/projects-data';
 import { useInView } from 'react-intersection-observer';
 
@@ -11,8 +11,9 @@ export function ProjectsGrid() {
     triggerOnce: true,
   });
   
-  // Show all projects
-  const filteredProjects = projectsData;
+  // Group projects by category
+  const professionalProjects = projectsData.filter(p => p.categories?.includes("Professional"));
+  const personalProjects = projectsData.filter(p => p.categories?.includes("Personal"));
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,35 +44,37 @@ export function ProjectsGrid() {
   };
   
   return (
-    <div className="space-y-8">
-      {/* Project Grid */}
+    <div className="space-y-12">
+      {/* Professional Projects */}
       <motion.div ref={ref} className="space-y-4">
+        <motion.div
+          className="flex items-center justify-between"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
+          <h2 className="text-2xl font-semibold">Professional</h2>
+          <div className="text-sm text-muted-foreground">{professionalProjects.length} project{professionalProjects.length !== 1 ? 's' : ''}</div>
+        </motion.div>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          {filteredProjects.map((project, index) => (
+          {professionalProjects.map((project) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
               layout
               layoutId={project.id}
             >
-              <InteractiveProjectCard
-                project={project}
-                hoverEffect={index % 3 === 0 ? 'tilt' : index % 3 === 1 ? 'lift' : 'glow'}
-                imageReveal={index % 3 === 0 ? 'zoom' : index % 3 === 1 ? 'slide' : 'morph'}
-                interaction={index % 2 === 0 ? 'magnetic' : 'ripple'}
-                className="h-full"
-              />
+              <ProjectCardActions project={project} />
             </motion.div>
           ))}
         </motion.div>
-        
         {/* Empty state */}
-        {filteredProjects.length === 0 && (
+        {professionalProjects.length === 0 && (
           <motion.div
             className="text-center py-16"
             initial={{ opacity: 0, y: 20 }}
@@ -79,32 +82,56 @@ export function ProjectsGrid() {
             transition={{ duration: 0.5 }}
           >
             <div className="text-4xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold mb-2">No projects found</h3>
+            <h3 className="text-xl font-semibold mb-2">No professional projects found</h3>
             <p className="text-muted-foreground">
-              No projects match the selected category. Try selecting a different filter.
+              Nothing to show here yet.
             </p>
           </motion.div>
         )}
       </motion.div>
-      
-      {/* Stats */}
-      {filteredProjects.length > 0 && (
+
+      {/* Personal Projects */}
+      <motion.div className="space-y-4">
         <motion.div
-          className="flex items-center justify-center gap-6 pt-8 text-sm text-muted-foreground"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          className="flex items-center justify-between"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
         >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500" />
-            <span>Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-muted-foreground" />
-            <span>Interactive cards with React Bits styling</span>
-          </div>
+          <h2 className="text-2xl font-semibold">Personal</h2>
+          <div className="text-sm text-muted-foreground">{personalProjects.length} project{personalProjects.length !== 1 ? 's' : ''}</div>
         </motion.div>
-      )}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
+          {personalProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              variants={itemVariants}
+              layout
+              layoutId={project.id}
+            >
+              <ProjectCardActions project={project} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {personalProjects.length === 0 && (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-4xl mb-4">🔍</div>
+            <h3 className="text-xl font-semibold mb-2">No personal projects found</h3>
+            <p className="text-muted-foreground">Nothing to show here yet.</p>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   );
 }

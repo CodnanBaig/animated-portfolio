@@ -53,10 +53,14 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  categories?: string[];
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  detailedDescription?: string;
+  keyFeatures?: string[];
+  technicalHighlights?: string[];
 }
 
 export interface ProjectCardProps extends BaseProps {

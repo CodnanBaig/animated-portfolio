@@ -6,24 +6,29 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const journeySteps = [
   {
-    year: "2018",
-    title: "Frontend Developer",
-    description: "Started my career focused on creating user interfaces with React and modern CSS frameworks."
-  },
-  {
-    year: "2020",
-    title: "Full Stack Developer",
-    description: "Expanded my skills to include backend development with Node.js and database management."
+    year: "2021",
+    title: "Introduction to Coding",
+    description: "Discovered my passion for programming with Python, transitioning from my background in acting and music."
   },
   {
     year: "2022",
-    title: "AI Integration Specialist",
-    description: "Began incorporating AI technologies into development workflows to enhance productivity and capabilities."
+    title: "Frontend Developer",
+    description: "Became a frontend developer specializing in Angular, building interactive user interfaces and web applications."
   },
   {
     year: "2023",
-    title: "Independent Developer",
-    description: "Launched my own practice focused on building AI-powered web applications for clients."
+    title: "Full Stack Developer",
+    description: "Completed Full Stack Development course from Masai School and grew into a comprehensive full stack developer."
+  },
+  {
+    year: "2024",
+    title: "Team Lead & Project Manager",
+    description: "Started managing teams and taking ownership of entire projects, expanding beyond individual development work."
+  },
+  {
+    year: "2025",
+    title: "AI-Enhanced Development",
+    description: "Began leveraging AI tools and technologies to accelerate development processes and enhance productivity."
   }
 ];
 

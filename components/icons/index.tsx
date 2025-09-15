@@ -6,6 +6,8 @@ import {
   SiTypescript, 
   SiTailwindcss, 
   SiMongodb, 
+  SiMysql,
+  SiPrisma,
   SiOpenai, 
   SiVercel 
 } from "react-icons/si";
@@ -17,7 +19,9 @@ export {
   SiNextdotjs, 
   SiTypescript, 
   SiTailwindcss, 
-  SiMongodb, 
+  SiMongodb,
+  SiMysql,
+  SiPrisma,
   SiOpenai, 
   SiVercel 
 };

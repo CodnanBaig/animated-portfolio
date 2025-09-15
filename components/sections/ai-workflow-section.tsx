@@ -33,25 +33,25 @@ export function AIWorkflowSection() {
       title: "Ideation",
       description: "Transform ideas into structured plans with AI assistance for research and concept refinement.",
       icon: <Lightbulb className="h-8 w-8 text-red-500" />,
-      tools: ["Cursor AI", "ChatGPT"]
+      tools: ["ChatGPT", "Perplexity"]
     },
     {
       title: "Rapid Prototyping",
       description: "Generate UI components and baseline code structure with AI-augmented development.",
       icon: <Code className="h-8 w-8 text-foreground" />,
-      tools: ["Cursor AI", "shadcn/ui", "GitHub Copilot"]
+      tools: ["v0", "Lovable", "Cursor AI"]
     },
     {
       title: "Backend Logic",
       description: "Build robust API endpoints and database schemas with AI-optimized code generation.",
       icon: <Brain className="h-8 w-8 text-foreground" />,
-      tools: ["Mistral", "Ollama", "Next.js API Routes"]
+      tools: ["NodeJS", "OpenRouter", "NextJS API Routes"]
     },
     {
       title: "Deployment",
       description: "Streamline testing, optimization, and deployment using AI-powered workflows.",
       icon: <Rocket className="h-8 w-8 text-foreground" />,
-      tools: ["Vercel", "GitHub Actions", "Mistral"]
+      tools: ["Netlify", "Vercel", "Local Servers"]
     },
   ];
   

@@ -22,7 +22,7 @@ export function ReactBitsParticles({
 }: ReactBitsParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,7 +51,7 @@ export function ReactBitsParticles({
       initializeParticles();
     };
 
-    const isDark = theme === 'dark';
+    const isDark = resolvedTheme === 'dark';
     const particleColor = isDark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)';
     const lineColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.35)';
 
@@ -149,7 +149,7 @@ export function ReactBitsParticles({
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
       window.removeEventListener('resize', handleResize);
     };
-  }, [theme, density, connectDistance]);
+  }, [resolvedTheme, density, connectDistance, interactive, lineWidth, speedMultiplier]);
 
   return (
     <div className={`absolute inset-0 ${className}`} style={{ mixBlendMode: 'screen', pointerEvents: 'none' }}>

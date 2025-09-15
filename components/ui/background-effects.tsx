@@ -21,7 +21,7 @@ export function BackgroundEffects({
   className = ''
 }: BackgroundEffectsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -40,7 +40,7 @@ export function BackgroundEffects({
   };
 
   const getThemeColors = () => {
-    const isDark = theme === 'dark';
+    const isDark = resolvedTheme === 'dark';
     return {
       primary: isDark ? 'rgba(239, 68, 68, 0.1)' : 'rgba(239, 68, 68, 0.08)',
       secondary: isDark ? 'rgba(156, 163, 175, 0.08)' : 'rgba(107, 114, 128, 0.06)',
@@ -535,10 +535,10 @@ export function BackgroundEffects({
 
 // Floating particles component for hero section
 export function FloatingParticles({ count = 20 }: { count?: number }) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   
   const getParticleColor = (index: number) => {
-    const isDark = theme === 'dark';
+    const isDark = resolvedTheme === 'dark';
     const colors = [
       isDark ? 'rgba(168, 85, 247, 0.6)' : 'rgba(79, 70, 229, 0.4)',
       isDark ? 'rgba(20, 184, 166, 0.4)' : 'rgba(16, 185, 129, 0.3)',

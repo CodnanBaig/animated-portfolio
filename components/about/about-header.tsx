@@ -60,8 +60,8 @@ export function AboutHeader() {
         className="relative aspect-square rounded-lg overflow-hidden border border-border"
       >
         <Image
-          src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg"
-          alt="Developer portrait"
+          src="/profile-image.jpg"
+          alt="Adnan Baig - AI-Powered Developer"
           fill
           className="object-cover"
         />
