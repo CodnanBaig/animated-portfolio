@@ -1,140 +1,97 @@
-# Animated Portfolio
+# Adnan Baig — Cinematic Portfolio
 
-A modern, animated portfolio website built with Next.js 14, TypeScript, and Tailwind CSS.
+Personal portfolio for [Adnan Baig](https://github.com/CodnanBaig): a full-stack product engineer focused on web apps, operational dashboards, mobile products, and AI-enabled tools.
 
-## Features
+Built with Next.js 15, React 19, TypeScript, and custom CSS — no animation or UI libraries beyond the framework.
 
-- 🎨 Modern UI with Tailwind CSS
-- 🌙 Dark/Light mode support
-- ⚡ Fast performance with Next.js
-- 📱 Fully responsive design
-- 🎭 Smooth animations with Framer Motion
-- ♿ Accessibility-first with Radix UI
-- 🔍 SEO optimized
-- 📝 TypeScript for type safety
+**Repo:** [github.com/CodnanBaig/animated-portfolio](https://github.com/CodnanBaig/animated-portfolio)
 
-## Tech Stack
+## Highlights
 
-- **Framework:** Next.js 14
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **UI Components:** Radix UI
-- **Animations:** Framer Motion
-- **Form Handling:** React Hook Form
-- **Validation:** Zod
-- **Icons:** Lucide React
-- **Theme:** next-themes
+- Cinematic dark editorial art direction
+- Responsive CSS 3D kinetic object
+- Scroll reveal, parallax, tilt, and cursor-light interactions
+- Curated case-study routes under `/work/[slug]`
+- Live GitHub profile and repository feed via `/api/github`
+- Reduced-motion and keyboard-accessibility support
+- SEO metadata, Open Graph image, sitemap, robots, and web manifest
 
-## Getting Started
+## Tech stack
+
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| UI | React 19 + custom CSS |
+| Package manager | pnpm |
+| Data | `data/portfolio.ts` |
+
+## Project structure
+
+```
+adnan-portfolio/
+├── app/                  # App Router pages, layout, SEO, API
+│   ├── api/github/       # GitHub profile + repos feed
+│   ├── work/[slug]/     # Case study pages
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/           # Portfolio shell, case studies, GitHub feed
+├── data/portfolio.ts     # Profile, projects, experience content
+└── package.json
+```
+
+## Getting started
 
 ### Prerequisites
 
-- Node.js 18.x or later
-- pnpm
+- Node.js 18+
+- [pnpm](https://pnpm.io/)
 
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/animated-portfolio.git
-   cd animated-portfolio
-   ```
-
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-
-3. Run the development server:
-   ```bash
-   pnpm dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
-
-```
-animated-portfolio/
-├── app/                 # Next.js app directory
-│   ├── about/          # About page
-│   ├── projects/       # Projects page
-│   ├── contact/        # Contact page
-│   └── layout.tsx      # Root layout
-├── components/         # React components
-│   ├── ui/            # Reusable UI components
-│   ├── sections/      # Page sections
-│   └── icons/         # Icon components
-├── public/            # Static assets
-├── lib/              # Utility functions
-└── hooks/            # Custom React hooks
-```
-
-## Development Guidelines
-
-1. **Code Style**
-   - Follow TypeScript best practices
-   - Use ESLint for code linting
-   - Write meaningful component and function names
-   - Add comments for complex logic
-
-2. **Component Structure**
-   - Keep components small and focused
-   - Use TypeScript interfaces for props
-   - Implement proper error boundaries
-   - Follow accessibility guidelines
-
-3. **Performance**
-   - Use Next.js Image component for images
-   - Implement proper code splitting
-   - Optimize animations
-   - Monitor bundle size
-
-## Available Scripts
-
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-
-## MCP (ReactBits) Integration
-
-This project is configured to use the ReactBits MCP server for component discovery and assistance.
-
-Setup:
-
-1. Optionally create a `.env` with `GITHUB_TOKEN` to raise GitHub API limits.
-2. Cursor will read `.cursorrules` and start the server automatically.
-3. Or run the server manually:
+### Install and run
 
 ```bash
-pnpm mcp
+pnpm install
+pnpm dev
 ```
 
-Cursor configuration is in `.cursorrules`:
+Open [http://localhost:3000](http://localhost:3000).
 
-```json
-{
-  "mcpServers": {
-    "reactbits": {
-      "command": "pnpm",
-      "args": ["mcp"],
-      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }
-    }
-  }
-}
+### Production
+
+```bash
+pnpm typecheck
+pnpm build
+pnpm start
 ```
 
-Reference: ReactBits MCP getting started guide [`https://reactbits.dev/get-started/mcp`](https://reactbits.dev/get-started/mcp)
+Deploy to Vercel, Netlify’s Next.js runtime, or any Node host.
 
-## Contributing
+## Configuration
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Edit all portfolio copy in `data/portfolio.ts`.
 
-## License
+Set the canonical site URL in production:
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+The GitHub route uses the public GitHub API and defaults to `CodnanBaig`. Optional token for higher rate limits:
+
+```bash
+GITHUB_TOKEN=github_pat_...
+```
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Dev server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve production build |
+| `pnpm typecheck` | TypeScript check |
+
+## Content note
+
+Projects are written as case studies. Repository and live demo links are only included where you want them visible — no invented public URLs.
