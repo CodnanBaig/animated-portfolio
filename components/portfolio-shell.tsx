@@ -151,7 +151,20 @@ function KineticObject() {
       <div className="orbit orbit-a"><i/><i/><i/></div>
       <div className="orbit orbit-b"><i/><i/></div>
       <div className="monolith">
-        <div className="monolith-face face-front"><span>AB</span><small>PRODUCT / ENGINEERING</small></div>
+        <div className="monolith-face face-front">
+          <img
+            className="face-portrait"
+            src="/portrait.jpg"
+            alt="Adnan Baig"
+            width={900}
+            height={1125}
+            decoding="async"
+          />
+          <div className="face-portrait-meta">
+            <span>AB</span>
+            <small>PRODUCT / ENGINEERING</small>
+          </div>
+        </div>
         <div className="monolith-face face-side"/>
         <div className="monolith-face face-top"/>
         <div className="monolith-core"/>
@@ -167,6 +180,7 @@ function KineticObject() {
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(hover: none)").matches) return;
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
@@ -238,15 +252,15 @@ export function PortfolioShell() {
                 <span>products that feel</span>
                 <span className="serif-line">inevitable.</span>
               </h1>
-              <div className="hero-bottom hero-enter">
-                <p>{profile.intro}</p>
-                <div className="hero-actions">
-                  <a className="button button-primary magnetic" href="#work">Explore selected work <ArrowRight/></a>
-                  <a className="button button-ghost magnetic" href={profile.social.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight/></a>
-                </div>
-              </div>
             </div>
             <KineticObject/>
+            <div className="hero-bottom hero-enter">
+              <p>{profile.intro}</p>
+              <div className="hero-actions">
+                <a className="button button-primary magnetic" href="#work">Explore selected work <ArrowRight/></a>
+                <a className="button button-ghost magnetic" href={profile.social.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight/></a>
+              </div>
+            </div>
           </div>
           <div className="hero-foot hero-enter">
             <span>Scroll to enter</span><i/>
