@@ -37,7 +37,8 @@ export const profile = {
   name: "Adnan Baig",
   firstName: "Adnan",
   role: "Full-Stack Developer",
-  location: "Mumbai, India · Remote",
+  location: "Chiang Mai, Thailand",
+  resumeUrl: "/Adnan_Baig_Resume.pdf",
   email: "adnanbaigofficial@gmail.com",
   githubUsername: "CodnanBaig",
   headline:
@@ -113,7 +114,7 @@ export const projects: Project[] = [
       "Ownership-scoped persistence",
       "Deterministic Playwright test drafts",
     ],
-    stack: ["Next.js", "TypeScript", "MongoDB", "Playwright"],
+    stack: ["TypeScript", "Node.js", "SQLite", "Playwright"],
     visual: "screenshot",
     number: "02",
     category: "Developer tool",

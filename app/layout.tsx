@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Next.js Developer",
     "React Developer",
     "Product Engineer",
-    "Mumbai",
+    "Chiang Mai",
   ],
   authors: [{ name: "Adnan Baig" }],
   creator: "Adnan Baig",

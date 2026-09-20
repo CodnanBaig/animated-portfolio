@@ -29,7 +29,7 @@ export default function Image() {
       >
         <span>adnanbaig ✳</span>
         <span style={{ color: "#adb0a6", fontSize: 17 }}>
-          Full-Stack Developer · Mumbai
+          Full-Stack Developer · Chiang Mai
         </span>
       </div>
       <div

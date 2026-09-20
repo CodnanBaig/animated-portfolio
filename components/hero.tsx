@@ -1,5 +1,4 @@
 import { profile } from "@/data/portfolio";
-import { ArrowUpRight } from "./icons";
 import styles from "./hero.module.css";
 
 export function Hero() {
@@ -18,13 +17,13 @@ export function Hero() {
         <a href="#work" className={styles.workLink}>
           View my work<span aria-hidden="true">↓</span>
         </a>
-        <a href={profile.social.email} className={styles.contactLink}>
-          Get in touch<ArrowUpRight size={18} />
+        <a href={profile.resumeUrl} download="Adnan_Baig_Resume.pdf" className={styles.contactLink}>
+          Download resume <span aria-hidden="true">↓</span>
         </a>
       </div>
       <div className={styles.details}>
         <span>Building professionally since 2021</span>
-        <span>Mumbai, India · Open to remote roles</span>
+        <span>{profile.location} · Open to remote roles</span>
       </div>
     </section>
   );

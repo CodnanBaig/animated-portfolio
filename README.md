@@ -6,6 +6,10 @@ Built with Next.js 15, React 19, TypeScript, GSAP, and custom CSS. Visual direct
 
 **Repo:** [github.com/CodnanBaig/animated-portfolio](https://github.com/CodnanBaig/animated-portfolio)
 
+<a href="https://animated-portfolio-cyan-seven.vercel.app/Adnan_Baig_Resume.pdf" download="Adnan_Baig_Resume.pdf"><img src="public/resume-download.svg" alt="Download Adnan Baig's resume as a PDF" width="220" height="44"></a>
+
+[Download PDF](https://animated-portfolio-cyan-seven.vercel.app/Adnan_Baig_Resume.pdf) · [View in repository](public/Adnan_Baig_Resume.pdf)
+
 ## Highlights
 
 - A direct introduction with work and contact links
@@ -98,3 +102,16 @@ GITHUB_TOKEN=github_pat_...
 ## Content note
 
 Private repositories are labelled explicitly. PitchGenie's deployed URL is an earlier release; the screenshot shows the current workspace. SignalForge runs locally and dev-clean is a CLI, so neither has an invented deployment link.
+
+## Resume
+
+The one-page resume lives at `public/Adnan_Baig_Resume.pdf`, with editable content in `data/resume.json`. The homepage and footer offer a direct download. Mart Fight is presented as a personal school-and-friendship project; the complete friend roster and online multiplayer remain future goals.
+
+To regenerate it with Python 3 and ReportLab:
+
+```bash
+python3 -m pip install reportlab==4.4.9
+python3 scripts/build-resume.py
+```
+
+The builder writes a review copy to `output/pdf/` and the served copy to `public/`. Review the rendered PDF before publishing changes.

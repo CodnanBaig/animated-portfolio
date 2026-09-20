@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { projects, experience } from "@/data/portfolio";
+import { projects, experience, profile } from "@/data/portfolio";
 import { ArrowUpRight, ArrowRight } from "./icons";
 import { SiteHeader, SiteFooter } from "./site-chrome";
 import { Hero } from "./hero";
@@ -289,7 +289,7 @@ export function PortfolioShell() {
             </div>
             <div className="portrait-caption">
               <span>The person behind the work.</span>
-              <span>Mumbai, IN ↗</span>
+              <span>{profile.location} ↗</span>
             </div>
           </div>
           <div className="about-copy">

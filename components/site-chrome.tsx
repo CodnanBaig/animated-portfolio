@@ -75,7 +75,7 @@ export function SiteHeader() {
             Say hello <ArrowUpRight size={36} />
           </a>
         </nav>
-        <p>Mumbai, India. Working everywhere.</p>
+        <p>{profile.location}. Open to remote roles.</p>
       </dialog>
     </>
   );
@@ -124,6 +124,9 @@ export function SiteFooter() {
           </button>
         </div>
         <div className="social-links">
+          <a href={profile.resumeUrl} download="Adnan_Baig_Resume.pdf">
+            Resume PDF <span aria-hidden="true">↓</span>
+          </a>
           <a href={profile.social.github} target="_blank" rel="noreferrer">
             GitHub <ArrowUpRight size={16} />
           </a>
@@ -134,7 +137,7 @@ export function SiteFooter() {
       </div>
       <div className="footer-colophon">
         <span>© {new Date().getFullYear()} Adnan Baig</span>
-        <span>Made with curiosity. In Mumbai.</span>
+        <span>Based in {profile.location}.</span>
         <a href="#top">Back to top ↑</a>
       </div>
     </footer>
