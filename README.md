@@ -1,19 +1,20 @@
-# Adnan Baig — Cinematic Portfolio
+# Adnan Baig — A Working Collection
 
-Personal portfolio for [Adnan Baig](https://github.com/CodnanBaig): a full-stack product engineer focused on web apps, operational dashboards, mobile products, and AI-enabled tools.
+Personal portfolio for [Adnan Baig](https://github.com/CodnanBaig): a full-stack developer with a frontend foundation, building web applications, developer tools, and mobile-first products.
 
-Built with Next.js 15, React 19, TypeScript, and custom CSS — no animation or UI libraries beyond the framework.
+Built with Next.js 15, React 19, TypeScript, GSAP, and custom CSS. Visual direction and motion rules are documented in `DESIGN.md`.
 
 **Repo:** [github.com/CodnanBaig/animated-portfolio](https://github.com/CodnanBaig/animated-portfolio)
 
 ## Highlights
 
-- Cinematic dark editorial art direction
-- Responsive CSS 3D kinetic object
-- Scroll reveal, parallax, tilt, and cursor-light interactions
-- Curated case-study routes under `/work/[slug]`
-- Live GitHub profile and repository feed via `/api/github`
-- Reduced-motion and keyboard-accessibility support
+- A direct introduction with work and contact links
+- Scroll-linked parallax and a stacked reel for three flagship projects
+- An expandable index for four additional projects
+- Seven case-study routes under `/work/[slug]`
+- Real screenshots with intrinsic proportions and keyboard-accessible image dialogs
+- GitHub links for every project and deployment links where available
+- Reduced-motion support and a persistent motion switch
 - SEO metadata, Open Graph image, sitemap, robots, and web manifest
 
 ## Tech stack
@@ -23,6 +24,8 @@ Built with Next.js 15, React 19, TypeScript, and custom CSS — no animation or 
 | Framework | Next.js 15 (App Router) |
 | Language | TypeScript |
 | UI | React 19 + custom CSS |
+| Interaction | GSAP ScrollTrigger + native dialogs |
+| Typography | Self-hosted Geologica variable font |
 | Package manager | pnpm |
 | Data | `data/portfolio.ts` |
 
@@ -36,7 +39,7 @@ adnan-portfolio/
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── globals.css
-├── components/           # Portfolio shell, case studies, GitHub feed
+├── components/           # Hero, project reel, image viewers, shared navigation
 ├── data/portfolio.ts     # Profile, projects, experience content
 └── package.json
 ```
@@ -69,9 +72,9 @@ Deploy to Vercel, Netlify’s Next.js runtime, or any Node host.
 
 ## Configuration
 
-Edit all portfolio copy in `data/portfolio.ts`.
+Edit project and profile content in `data/portfolio.ts`. Homepage framing lives in `components/portfolio-shell.tsx`. Screenshot provenance is recorded in `public/projects/SOURCES.md`.
 
-Set the canonical site URL in production:
+Vercel builds use `VERCEL_PROJECT_PRODUCTION_URL` for canonical metadata and the sitemap. To override it, or deploy on another host, set:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
@@ -94,4 +97,4 @@ GITHUB_TOKEN=github_pat_...
 
 ## Content note
 
-Projects are written as case studies. Repository and live demo links are only included where you want them visible — no invented public URLs.
+Private repositories are labelled explicitly. PitchGenie's deployed URL is an earlier release; the screenshot shows the current workspace. SignalForge runs locally and dev-clean is a CLI, so neither has an invented deployment link.

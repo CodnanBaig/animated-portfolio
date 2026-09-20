@@ -1,72 +1,110 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect } from "react";
 import type { Project } from "@/data/portfolio";
-import { profile } from "@/data/portfolio";
-import { ArrowLeft, ArrowRight, ArrowUpRight, GithubIcon, LinkedinIcon } from "./icons";
-import { ProjectVisual } from "./project-visual";
+import { SiteHeader, SiteFooter } from "./site-chrome";
+import { ProjectVisual, ProjectLinks } from "./project-visual";
+import { ArrowLeft, ArrowUpRight } from "./icons";
 
-export function CaseStudyShell({ project, nextProject }: { project: Project; nextProject: Project }) {
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
+export function CaseStudyShell({
+  project,
+  nextProject,
+}: {
+  project: Project;
+  nextProject: Project;
+}) {
   return (
-    <div className="case-shell">
-      <header className="case-header">
-        <Link href="/" className="brand"><span>AB</span><i/></Link>
-        <Link className="case-back" href="/#work"><ArrowLeft/> All work</Link>
-        <a className="header-cta" href={profile.social.email}>Start a conversation <ArrowUpRight size={16}/></a>
-      </header>
-      <main>
-        <section className="case-hero section-pad">
-          <div className="case-hero-top reveal"><span>{project.number}</span><span>{project.eyebrow}</span><span>{project.year}</span></div>
-          <h1 className="reveal">{project.title}</h1>
-          <p className="case-summary reveal">{project.summary}</p>
-          <div className="case-visual reveal"><ProjectVisual type={project.visual}/></div>
-        </section>
-
-        <section className="case-overview section-pad">
-          <div className="case-overview-label reveal"><span>Context</span><span>01 / 04</span></div>
-          <div className="case-overview-copy reveal"><p>{project.description}</p></div>
-          <div className="case-stack reveal">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
-        </section>
-
-        <section className="case-narrative section-pad">
-          <article className="reveal"><span>01</span><small>The challenge</small><h2>{project.challenge}</h2></article>
-          <article className="reveal"><span>02</span><small>The approach</small><h2>{project.approach}</h2></article>
-          <article className="reveal"><span>03</span><small>The outcome</small><h2>{project.outcome}</h2></article>
-        </section>
-
-        <section className="case-impact section-pad">
-          <div className="section-index reveal"><span>04</span><span>What the work covered</span></div>
-          <div className="impact-grid">
-            {project.impact.map((item, index) => <div className="impact-card reveal" key={item}><span>0{index + 1}</span><p>{item}</p></div>)}
+    <div id="top">
+      <SiteHeader />
+      <main id="main" className="case-page">
+        <header className="case-header">
+          <Link className="back-link" href="/#work">
+            <ArrowLeft size={17} />
+            Back to the collection
+          </Link>
+          <div className="case-title-row">
+            <div>
+              <span className="section-label">
+                {project.category} · {project.year}
+              </span>
+              <h1>
+                {project.title}
+                <span className="copper-period">.</span>
+              </h1>
+            </div>
+            <span className="case-number">
+              {project.number}
+              <span>/ 07</span>
+            </span>
+          </div>
+          <div className="case-intro">
+            <p>{project.summary}</p>
+            <ProjectLinks project={project} />
+          </div>
+        </header>
+        <div className={`case-stage project-${project.slug}`}>
+          <ProjectVisual project={project} priority />
+          {project.slug === "pitchgenie" && (
+            <span className="case-image-note">
+              Current workspace shown. The live link opens an earlier release.
+            </span>
+          )}
+        </div>
+        <section className="case-story" aria-label="Project story">
+          <div className="case-overview">
+            <span className="section-label">The idea</span>
+            <h2>
+              {project.eyebrow}
+              {!/[.!?]$/.test(project.eyebrow) && (
+                <span className="copper-period">.</span>
+              )}
+            </h2>
+            <p>{project.description}</p>
+            <div className="case-tools">
+              <span>Built with</span>
+              <p>{project.stack.join(" / ")}</p>
+            </div>
+          </div>
+          <div className="case-narrative">
+            <section>
+              <h3>The problem</h3>
+              <p>{project.challenge}</p>
+            </section>
+            <section>
+              <h3>The approach</h3>
+              <p>{project.approach}</p>
+            </section>
+            <section>
+              <h3>What came out of it</h3>
+              <p>{project.outcome}</p>
+            </section>
+            <ul className="case-highlights">
+              {project.impact.map((item) => (
+                <li key={item}>
+                  <span aria-hidden="true">↳</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            {!project.liveUrl && (
+              <p className="deployment-note">
+                {project.slug === "dev-clean"
+                  ? "A command-line utility, distributed through GitHub."
+                  : "Runs as a local research environment. There is no public deployment."}
+              </p>
+            )}
           </div>
         </section>
-
-        <section className="next-project section-pad">
-          <span className="micro-label reveal">Next case study</span>
-          <Link href={`/work/${nextProject.slug}`} className="next-link reveal">
-            <span>{nextProject.number}</span><h2>{nextProject.title}</h2><ArrowRight size={42}/>
-          </Link>
-        </section>
+        <Link className="next-project" href={`/work/${nextProject.slug}`}>
+          <div>
+            <span className="section-label">
+              Keep exploring · {nextProject.number} / 07
+            </span>
+            <h2>{nextProject.title}</h2>
+            <p>{nextProject.eyebrow}</p>
+          </div>
+          <ArrowUpRight size={80} />
+        </Link>
       </main>
-      <footer className="case-footer section-pad">
-        <span>Adnan Baig · Full Stack Product Engineer</span>
-        <div><a href={profile.social.github} target="_blank" rel="noreferrer"><GithubIcon/> GitHub</a><a href={profile.social.linkedin} target="_blank" rel="noreferrer"><LinkedinIcon/> LinkedIn</a></div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

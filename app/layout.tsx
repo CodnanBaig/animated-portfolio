@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+import { ExperienceProvider } from "@/components/experience-provider";
+import { siteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Adnan Baig — Full Stack Product Engineer",
+    default: "Adnan Baig — Full-Stack Developer",
     template: "%s — Adnan Baig",
   },
   description:
-    "Portfolio of Adnan Baig, a full-stack product engineer building modern web applications, operational dashboards, mobile products and AI-enabled tools.",
+    "Adnan Baig is a full-stack developer with a frontend foundation, building web applications, developer tools and mobile-first products with reliable APIs and data.",
   keywords: [
     "Adnan Baig",
     "Full Stack Developer",
@@ -23,18 +23,18 @@ export const metadata: Metadata = {
   authors: [{ name: "Adnan Baig" }],
   creator: "Adnan Baig",
   openGraph: {
-    title: "Adnan Baig — Full Stack Product Engineer",
+    title: "Adnan Baig — Full-Stack Developer",
     description:
-      "Engineering digital products with product-owner instincts across web, mobile, AI and music-tech.",
+      "I build the product. And the systems behind it. Web applications, developer tools and mobile-first products.",
     type: "website",
     url: siteUrl,
     siteName: "Adnan Baig Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adnan Baig — Full Stack Product Engineer",
+    title: "Adnan Baig — Full-Stack Developer",
     description:
-      "Engineering digital products with product-owner instincts across web, mobile, AI and music-tech.",
+      "I build the product. And the systems behind it. Web applications, developer tools and mobile-first products.",
   },
 };
 
@@ -42,14 +42,18 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#090a0c",
+  themeColor: "#101110",
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-scroll-behavior="smooth">
+      <body>
+        <ExperienceProvider>{children}</ExperienceProvider>
+      </body>
     </html>
   );
 }

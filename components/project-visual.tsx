@@ -1,68 +1,133 @@
-import type { ProjectVisual as VisualType } from "@/data/portfolio";
+"use client";
 
-export function ProjectVisual({ type, compact = false }: { type: VisualType; compact?: boolean }) {
+import { useRef } from "react";
+import type { Project } from "@/data/portfolio";
+import { ArrowUpRight, CloseIcon } from "./icons";
+
+export function ProjectLinks({ project }: { project: Project }) {
   return (
-    <div className={`project-visual visual-${type} ${compact ? "is-compact" : ""}`} aria-hidden="true">
-      <div className="visual-grid" />
-      {type === "distribution" && (
-        <div className="mock-window dashboard-mock">
-          <div className="mock-top"><i/><i/><i/><span>release.control</span></div>
-          <div className="mock-body dashboard-layout">
-            <div className="mock-sidebar"><b/><b/><b/><b/><b/></div>
-            <div className="dashboard-content">
-              <div className="metric-row"><b/><b/><b/></div>
-              <div className="chart"><span/><span/><span/><span/><span/><span/></div>
-              <div className="table-lines"><i/><i/><i/><i/></div>
-            </div>
-          </div>
-        </div>
+    <div className="project-links">
+      {project.liveUrl && (
+        <a href={project.liveUrl} target="_blank" rel="noreferrer">
+          {project.liveLabel || "Visit project"}
+          <ArrowUpRight size={16} />
+        </a>
       )}
-      {type === "resume" && (
-        <div className="resume-scene">
-          <div className="resume-page back"><i/><i/><i/><i/></div>
-          <div className="resume-page front"><b>AB</b><i/><i/><i/><span/><span/><span/></div>
-          <div className="ai-chip">AI / EDIT</div>
-        </div>
-      )}
-      {type === "wave" && (
-        <div className="wave-scene">
-          <div className="wave-disc"><i/><i/><i/></div>
-          <div className="wave-line one"/><div className="wave-line two"/><div className="wave-line three"/>
-          <div className="wave-panel"><span>01:28</span><b/><b/><b/><b/></div>
-        </div>
-      )}
-      {type === "training" && (
-        <div className="phone-scene">
-          <div className="phone-frame">
-            <div className="phone-notch"/>
-            <div className="round-timer"><span>03</span><small>ROUND</small></div>
-            <div className="combo-bars"><i/><i/><i/><i/></div>
-            <div className="phone-nav"><b/><b/><b/></div>
-          </div>
-          <div className="strike-path"><i/><i/><i/></div>
-        </div>
-      )}
-      {type === "finance" && (
-        <div className="finance-scene">
-          <div className="balance-card"><small>AVAILABLE</small><strong>₹ 42,850</strong><div className="spark"><i/><i/><i/><i/><i/><i/></div></div>
-          <div className="receipt"><span/><span/><span/><span/><b/></div>
-          <div className="coin coin-one">₹</div><div className="coin coin-two">₹</div>
-        </div>
-      )}
-      {type === "studio" && (
-        <div className="mock-window studio-mock">
-          <div className="mock-top"><i/><i/><i/><span>kenmark / studio</span></div>
-          <div className="studio-layout">
-            <div className="studio-rail"><b/><b/><b/><b/><b/><b/></div>
-            <div className="studio-tree"><span/><span/><span/><span/><span/></div>
-            <div className="studio-code">
-              <em/><em/><em/><em/><em/><em/><em/><em/>
-              <div className="agent-card"><small>AGENT RUN</small><b/><b/><b/></div>
-            </div>
-          </div>
-        </div>
-      )}
-      <div className="visual-shine" />
+      <a href={project.githubUrl} target="_blank" rel="noreferrer">
+        GitHub{project.sourcePrivate ? " (private)" : ""}
+        <ArrowUpRight size={16} />
+      </a>
     </div>
+  );
+}
+
+export function ProjectVisual({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  priority?: boolean;
+}) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  if (!project.image)
+    return (
+      <div className="terminal-visual">
+        <div className="terminal-top">
+          <span>
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>dev-clean · command reference</span>
+        </div>
+        <div className="terminal-content">
+          <span className="terminal-comment">
+            # First, see what’s taking up space.
+          </span>
+          <code>
+            <b>$</b> node bin/dev-clean.js inspect --path ./workspace
+          </code>
+          <span className="terminal-comment"># Make the plan inspectable.</span>
+          <code>
+            <b>$</b> node bin/dev-clean.js plan --path ./workspace
+            <br /> --output cleanup-plan.json
+          </code>
+          <span className="terminal-comment">
+            # Preview it. Dry run is the default.
+          </span>
+          <code>
+            <b>$</b> node bin/dev-clean.js apply cleanup-plan.json
+            <br /> --path ./workspace
+          </code>
+          <div className="terminal-foot">
+            <span>Inspect → Plan → Quarantine → Restore</span>
+            <span>v0.2</span>
+          </div>
+        </div>
+      </div>
+    );
+  if (project.secondaryImage)
+    return (
+      <div className="paired-screens">
+        <ProjectVisual
+          project={{ ...project, secondaryImage: undefined }}
+          priority={priority}
+        />
+        <ProjectVisual
+          project={{
+            ...project,
+            title: `${project.title} insights`,
+            image: project.secondaryImage,
+            secondaryImage: undefined,
+          }}
+          priority={priority}
+        />
+      </div>
+    );
+  return (
+    <>
+      <button
+        className="project-image-button"
+        aria-label={`Enlarge ${project.title} screenshot`}
+        onClick={() => dialog.current?.showModal()}
+      >
+        <img
+          src={project.image}
+          width={project.imageWidth}
+          height={project.imageHeight}
+          alt={`${project.title} application interface`}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+        />
+        <span className="image-inspect">
+          View full image <span aria-hidden="true">↗</span>
+        </span>
+      </button>
+      <dialog
+        ref={dialog}
+        className="image-dialog"
+        aria-label={`${project.title} screenshot`}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) dialog.current?.close();
+        }}
+      >
+        <div className="image-dialog-top">
+          <span>{project.title}</span>
+          <button
+            onClick={() => dialog.current?.close()}
+            aria-label="Close screenshot"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+        <img
+          src={project.image}
+          width={project.imageWidth}
+          height={project.imageHeight}
+          alt={`${project.title} full application screenshot`}
+        />
+        <p>Original image proportions. Every detail intact.</p>
+      </dialog>
+    </>
   );
 }

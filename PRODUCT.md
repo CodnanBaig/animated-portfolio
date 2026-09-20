@@ -6,15 +6,15 @@ brand
 
 ## Users
 
-Hiring managers, technical recruiters, founders, and collaborators evaluating Adnan Baig for senior frontend / full-stack product engineering roles. They arrive with limited time, often on mobile between meetings, and need a clear sense of craft, judgment, and shipped work.
+Hiring managers, technical recruiters, founders, and collaborators evaluating Adnan Baig for full-stack development roles. They arrive with limited time, often on mobile between meetings, and need a clear sense of craft, judgment, and shipped work.
 
 ## Product Purpose
 
-A personal portfolio that presents Adnan as a full-stack product engineer: case studies, operating principles, experience, and a live GitHub signal. Success is a confident first impression that leads to a conversation or deeper case-study read, without inventing demos or overselling.
+A personal portfolio that presents Adnan as a full-stack developer with a frontend foundation: case studies, operating principles, and experience. Success is a confident first impression that leads to a conversation or deeper case-study read, without inventing demos or overselling.
 
 ## Brand Personality
 
-Cinematic, editorial, precise. Dark atmosphere with gold accent restraint. Feels like a product owner who also ships the interface, not a template portfolio or agency brochure.
+Professional, direct, precise. A simple text-led hero introduces the developer. Real product imagery and scroll-driven project scenes provide the evidence below it. Dark mineral surfaces and warm copper accents. The current visual and motion specification is in DESIGN.md.
 
 ## Anti-references
 
