@@ -1,0 +1,87 @@
+{
+  "name": "Adnan Baig",
+  "title": "Full-Stack Engineer | AI-Assisted Development",
+  "location": "Chiang Mai, Thailand",
+  "availability": "Open to remote engineering roles",
+  "email": "adnanbaigofficial@gmail.com",
+  "links": [
+    { "label": "Portfolio", "url": "https://animated-portfolio-cyan-seven.vercel.app" },
+    { "label": "GitHub / CodnanBaig", "url": "https://github.com/CodnanBaig" },
+    { "label": "LinkedIn / Adnan Baig", "url": "https://in.linkedin.com/in/adnan-baig-74b8aa21a" }
+  ],
+  "summary": "Full-stack engineer with professional development experience since 2021 and a frontend foundation in React, Next.js and Angular. Builds web applications, developer tools and mobile-first products using TypeScript, Node.js and SQL-backed data. Validates AI-assisted implementation through code review, automated tests and reproducible checks.",
+  "experience": {
+    "company": "Kenmark ITan Solutions",
+    "role": "Frontend Developer",
+    "period": "October 2021 - Present",
+    "bullets": [
+      "Develop responsive React and Angular applications with reusable components, dashboards and forms, working with product and design teams to clarify requirements.",
+      "Integrate REST APIs and troubleshoot authentication, CORS, routing and data-flow issues across frontend and service boundaries.",
+      "Support builds, hosting and environment configuration across Next.js/Vite, Vercel, Netlify, PM2 and DNS."
+    ]
+  },
+  "projects": [
+    {
+      "name": "Don't Go Broke",
+      "descriptor": "Personal finance application",
+      "stack": "Next.js, TypeScript, Supabase, PostgreSQL, Capacitor",
+      "links": [
+        { "label": "Live", "url": "https://dont-go-broke-next.vercel.app" },
+        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/dont-go-broke-next" }
+      ],
+      "bullets": [
+        "Built a Next.js/Capacitor finance app with ledger-derived balances, recurring-bill reserves and history-qualified spending projections.",
+        "Implemented ownership-scoped Supabase data, one-base-currency checks and transactional JSON restoration that rolls back invalid imports."
+      ]
+    },
+    {
+      "name": "ReproLab",
+      "descriptor": "Browser debugging workbench",
+      "stack": "TypeScript, Node.js, SQLite, libSQL, Playwright",
+      "links": [
+        { "label": "Live", "url": "https://reprolab.vercel.app" },
+        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/reprolab" }
+      ],
+      "bullets": [
+        "Built a browser recorder and debugging workbench capturing masked interactions, errors and network metadata for timeline-based investigation.",
+        "Implemented owner-scoped SQLite persistence, duplicate-upload protection and deterministic Playwright regression-test draft generation."
+      ]
+    },
+    {
+      "name": "dev-clean",
+      "descriptor": "Workspace cleanup CLI",
+      "stack": "Node.js, JavaScript, TypeScript, GitHub Actions",
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/CodnanBaig/dev-clean" }
+      ],
+      "bullets": [
+        "Developed a CLI for JavaScript, Python and Rust workspaces with expiring plans, stale-target validation, reversible quarantine and restore.",
+        "Added operation journals, recovery and Git-tracked-file safeguards, with disposable-fixture tests and Linux/macOS/Windows CI."
+      ]
+    },
+    {
+      "name": "Mart Fight",
+      "descriptor": "A personal game about school and friendship",
+      "stack": "TypeScript, Phaser, Vite, Vitest, Playwright",
+      "links": [
+        { "label": "Play", "url": "https://mart-fight.vercel.app" },
+        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/mart-fight" }
+      ],
+      "bullets": [
+        "Built a playable browser fighting-game prototype inspired by my school and friendships, with keyboard/touch controls and automated game checks.",
+        "Developing toward recognizable fighters based on actual school friends; the full friend roster and online multiplayer remain future goals."
+      ]
+    }
+  ],
+  "skills": [
+    { "label": "Languages & UI", "value": "TypeScript, JavaScript, React, Next.js, Angular, HTML, CSS, Tailwind CSS" },
+    { "label": "Backend & data", "value": "Node.js, REST APIs, PostgreSQL, Supabase, SQLite, Prisma, MongoDB" },
+    { "label": "Quality & delivery", "value": "Vitest, Playwright, GitHub Actions, Git, Vercel, Netlify, Capacitor" },
+    { "label": "AI-assisted workflow", "value": "Cursor, Claude; project experience with LLM APIs and OpenRouter" }
+  ],
+  "education": {
+    "school": "Masai School",
+    "program": "Full Stack Web Development Program",
+    "details": "Nine-month program covering JavaScript, React, Node.js, Express, MongoDB, and data structures and algorithms."
+  }
+}

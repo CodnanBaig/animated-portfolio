@@ -141,7 +141,7 @@ document = SimpleDocTemplate(
     leftMargin=40, rightMargin=40, topMargin=30, bottomMargin=30,
     title="Adnan Baig - Full-Stack Engineer Resume",
     author=DATA["name"], subject="Professional experience, selected projects, and technical skills",
-    pageCompression=1,
+    pageCompression=1, invariant=1,
 )
 def reject_overflow(canvas, document):
     raise ValueError("Resume exceeds one page; edit the content or layout before publishing.")
@@ -151,3 +151,13 @@ document.build(story, onLaterPages=reject_overflow)
 copyfile(OUTPUT, PUBLIC)
 print(f"Created {OUTPUT}")
 print(f"Published asset {PUBLIC}")
+
+# Keep the application-specific download identical to the existing site asset.
+alias = DATA.get("downloadFilename")
+if alias:
+    if Path(alias).name != alias or not alias.endswith(".pdf"):
+        raise ValueError("downloadFilename must be a PDF basename, not a path.")
+    destination = ROOT / "public" / alias
+    if destination != PUBLIC:
+        copyfile(OUTPUT, destination)
+        print(f"Application download {destination}")

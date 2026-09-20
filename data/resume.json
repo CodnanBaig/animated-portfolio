@@ -1,62 +1,78 @@
 {
   "name": "Adnan Baig",
-  "title": "Full-Stack Engineer | AI-Assisted Development",
+  "title": "Full-Stack Engineer | Browser Automation & AI-Assisted Development",
   "location": "Chiang Mai, Thailand",
   "availability": "Open to remote engineering roles",
   "email": "adnanbaigofficial@gmail.com",
   "links": [
-    { "label": "Portfolio", "url": "https://animated-portfolio-cyan-seven.vercel.app" },
-    { "label": "GitHub / CodnanBaig", "url": "https://github.com/CodnanBaig" },
-    { "label": "LinkedIn / Adnan Baig", "url": "https://in.linkedin.com/in/adnan-baig-74b8aa21a" }
+    {
+      "label": "Portfolio",
+      "url": "https://adnanbaigportfolio.netlify.app"
+    },
+    {
+      "label": "GitHub / CodnanBaig",
+      "url": "https://github.com/CodnanBaig"
+    },
+    {
+      "label": "LinkedIn / Adnan Baig",
+      "url": "https://in.linkedin.com/in/adnan-baig-74b8aa21a"
+    }
   ],
-  "summary": "Full-stack engineer with professional development experience since 2021 and a frontend foundation in React, Next.js and Angular. Builds web applications, developer tools and mobile-first products using TypeScript, Node.js and SQL-backed data. Validates AI-assisted implementation through code review, automated tests and reproducible checks.",
+  "summary": "Full-stack engineer with professional development experience since 2021, grounded in React, Next.js and TypeScript. Builds browser debugging tools and data-backed applications with Node.js and PostgreSQL, plus project-based Python/FastAPI experience. Uses AI coding tools to accelerate implementation while reviewing changes, debugging across layers and validating behavior through automated tests.",
   "experience": {
     "company": "Kenmark ITan Solutions",
     "role": "Frontend Developer",
     "period": "October 2021 - Present",
     "bullets": [
-      "Develop responsive React and Angular applications with reusable components, dashboards and forms, working with product and design teams to clarify requirements.",
-      "Integrate REST APIs and troubleshoot authentication, CORS, routing and data-flow issues across frontend and service boundaries.",
-      "Support builds, hosting and environment configuration across Next.js/Vite, Vercel, Netlify, PM2 and DNS."
+      "Develop responsive React and Angular applications, reusable components, dashboards and forms; clarify requirements with product and design stakeholders.",
+      "Integrate REST APIs and investigate authentication, CORS, routing and data-flow defects across browser and service boundaries.",
+      "Support builds, hosting and environment troubleshooting across Next.js/Vite, Vercel, Netlify, PM2 and DNS."
     ]
   },
   "projects": [
     {
-      "name": "Don't Go Broke",
-      "descriptor": "Personal finance application",
-      "stack": "Next.js, TypeScript, Supabase, PostgreSQL, Capacitor",
-      "links": [
-        { "label": "Live", "url": "https://dont-go-broke-next.vercel.app" },
-        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/dont-go-broke-next" }
-      ],
-      "bullets": [
-        "Built a Next.js/Capacitor finance app with ledger-derived balances, recurring-bill reserves and history-qualified spending projections.",
-        "Implemented ownership-scoped Supabase data, one-base-currency checks and transactional JSON restoration that rolls back invalid imports."
-      ]
-    },
-    {
       "name": "ReproLab",
-      "descriptor": "Browser debugging workbench",
+      "descriptor": "Browser debugging & regression-test tooling",
       "stack": "TypeScript, Node.js, SQLite, libSQL, Playwright",
       "links": [
-        { "label": "Live", "url": "https://reprolab.vercel.app" },
-        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/reprolab" }
+        {
+          "label": "Case study",
+          "url": "https://adnanbaigportfolio.netlify.app/work/reprolab"
+        }
       ],
       "bullets": [
-        "Built a browser recorder and debugging workbench capturing masked interactions, errors and network metadata for timeline-based investigation.",
-        "Implemented owner-scoped SQLite persistence, duplicate-upload protection and deterministic Playwright regression-test draft generation."
+        "Built a framework-independent browser recorder capturing masked interactions, errors and fetch/XHR metadata for timeline-based debugging.",
+        "Implemented owner-scoped SQL persistence, upload deduplication and deterministic Playwright test drafts; added API/security and browser regression checks."
       ]
     },
     {
-      "name": "dev-clean",
-      "descriptor": "Workspace cleanup CLI",
-      "stack": "Node.js, JavaScript, TypeScript, GitHub Actions",
+      "name": "Don't Go Broke",
+      "descriptor": "Data-backed personal finance application",
+      "stack": "React, Next.js, TypeScript, Supabase, PostgreSQL, Capacitor",
       "links": [
-        { "label": "GitHub", "url": "https://github.com/CodnanBaig/dev-clean" }
+        {
+          "label": "Case study",
+          "url": "https://adnanbaigportfolio.netlify.app/work/dont-go-broke"
+        }
       ],
       "bullets": [
-        "Developed a CLI for JavaScript, Python and Rust workspaces with expiring plans, stale-target validation, reversible quarantine and restore.",
-        "Added operation journals, recovery and Git-tracked-file safeguards, with disposable-fixture tests and Linux/macOS/Windows CI."
+        "Built a finance app with Supabase authentication and row-level ownership controls, ledger-derived balances and recurring-bill reserves.",
+        "Implemented transactional JSON restore with validation and rollback; added financial-logic, database-isolation and browser-journey tests."
+      ]
+    },
+    {
+      "name": "SignalForge",
+      "descriptor": "Python API & AI-assisted research simulator",
+      "stack": "Python, FastAPI, React, TypeScript, SQLite, Docker",
+      "links": [
+        {
+          "label": "Case study",
+          "url": "https://adnanbaigportfolio.netlify.app/work/signalforge"
+        }
+      ],
+      "bullets": [
+        "Built Python/FastAPI APIs and a React dashboard around a persistent SQLite paper-trading ledger and bounded LLM proposals; no real orders.",
+        "Separated model output from execution validation; tested stale data, duplicate requests and API/browser flows with external-provider fixtures."
       ]
     },
     {
@@ -64,24 +80,44 @@
       "descriptor": "A personal game about school and friendship",
       "stack": "TypeScript, Phaser, Vite, Vitest, Playwright",
       "links": [
-        { "label": "Play", "url": "https://mart-fight.vercel.app" },
-        { "label": "GitHub (private)", "url": "https://github.com/CodnanBaig/mart-fight" }
+        {
+          "label": "Case study",
+          "url": "https://adnanbaigportfolio.netlify.app/work/mart-fight"
+        }
       ],
       "bullets": [
-        "Built a playable browser fighting-game prototype inspired by my school and friendships, with keyboard/touch controls and automated game checks.",
-        "Developing toward recognizable fighters based on actual school friends; the full friend roster and online multiplayer remain future goals."
+        "Created a browser fighting game from my attachment to school; planning fighters based on actual school friends so we can eventually face off as ourselves."
       ]
     }
   ],
   "skills": [
-    { "label": "Languages & UI", "value": "TypeScript, JavaScript, React, Next.js, Angular, HTML, CSS, Tailwind CSS" },
-    { "label": "Backend & data", "value": "Node.js, REST APIs, PostgreSQL, Supabase, SQLite, Prisma, MongoDB" },
-    { "label": "Quality & delivery", "value": "Vitest, Playwright, GitHub Actions, Git, Vercel, Netlify, Capacitor" },
-    { "label": "AI-assisted workflow", "value": "Cursor, Claude; project experience with LLM APIs and OpenRouter" }
+    {
+      "label": "Frontend",
+      "value": "TypeScript, JavaScript, React, Next.js, Angular, HTML, CSS, Tailwind CSS"
+    },
+    {
+      "label": "APIs & data",
+      "value": "Node.js, HTTP/REST, SQL, PostgreSQL, Supabase, SQLite; Python/FastAPI (projects)"
+    },
+    {
+      "label": "Quality & delivery",
+      "value": "Playwright browser automation, Vitest, GitHub Actions, Git, Vercel, Netlify"
+    },
+    {
+      "label": "AI-assisted workflow",
+      "value": "Cursor, Claude, reviewed code changes, regression tests; LLM APIs / OpenRouter"
+    }
   ],
   "education": {
     "school": "Masai School",
     "program": "Full Stack Web Development Program",
     "details": "Nine-month program covering JavaScript, React, Node.js, Express, MongoDB, and data structures and algorithms."
+  },
+  "downloadFilename": "Adnan_Baig_Squoosh_AI_Resume.pdf",
+  "application": {
+    "company": "Squoosh.AI",
+    "role": "Full-Stack Software Engineer - AI Product & Browser Automation",
+    "postingUrl": "https://wellfound.com/jobs/4697974-full-stack-software-engineer-ai-product-browser-automation",
+    "notes": "Tailored project selection; professional title and dates retained. Python/FastAPI is project experience. Friend-inspired fighters and shared play remain a vision."
   }
 }
