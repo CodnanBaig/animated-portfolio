@@ -6,9 +6,9 @@ Built with Next.js 15, React 19, TypeScript, GSAP, and custom CSS. Visual direct
 
 **Repo:** [github.com/CodnanBaig/animated-portfolio](https://github.com/CodnanBaig/animated-portfolio)
 
-<a href="https://animated-portfolio-cyan-seven.vercel.app/Adnan_Baig_Resume.pdf" download="Adnan_Baig_Resume.pdf"><img src="public/resume-download.svg" alt="Download Adnan Baig's resume as a PDF" width="220" height="44"></a>
+<a href="https://adnanbaigportfolio.netlify.app/Adnan_Baig_Resume.pdf" download="Adnan_Baig_Resume.pdf"><img src="public/resume-download.svg" alt="Download Adnan Baig's resume as a PDF" width="220" height="44"></a>
 
-[Download PDF](https://animated-portfolio-cyan-seven.vercel.app/Adnan_Baig_Resume.pdf) · [View in repository](public/Adnan_Baig_Resume.pdf)
+[Download PDF](https://adnanbaigportfolio.netlify.app/Adnan_Baig_Resume.pdf) · [View in repository](public/Adnan_Baig_Resume.pdf) · [Squoosh.AI application PDF](https://adnanbaigportfolio.netlify.app/Adnan_Baig_Squoosh_AI_Resume.pdf)
 
 ## Highlights
 
@@ -105,13 +105,26 @@ Private repositories are labelled explicitly. PitchGenie's deployed URL is an ea
 
 ## Resume
 
-The one-page resume lives at `public/Adnan_Baig_Resume.pdf`, with editable content in `data/resume.json`. The homepage and footer offer a direct download. Mart Fight is presented as a personal school-and-friendship project; the complete friend roster and online multiplayer remain future goals.
+The one-page resume lives at `public/Adnan_Baig_Resume.pdf`, with editable content in `data/resume.json`. The homepage and footer retain their existing direct-download URL.
 
-To regenerate it with Python 3 and ReportLab:
+The active resume is tailored for **Squoosh.AI — Full-Stack Software Engineer, AI Product & Browser Automation**. It leads with ReproLab, then Don't Go Broke and SignalForge, and retains a concise Mart Fight entry about school and friendship. Python/FastAPI is described as project experience; simulated trading and regression-test drafts are not presented as live trading or automatically proven fixes. No employment title, dates or education credentials were changed.
+
+`public/Adnan_Baig_Squoosh_AI_Resume.pdf` is an identical, application-specific download. The previous general-purpose source is preserved unchanged in `data/resume.general.json` and Git history. The seven website case studies and their ordering are unchanged.
+
+To regenerate with Python 3 and ReportLab:
 
 ```bash
 python3 -m pip install reportlab==4.4.9
 python3 scripts/build-resume.py
 ```
 
-The builder writes a review copy to `output/pdf/` and the served copy to `public/`. Review the rendered PDF before publishing changes.
+The builder writes a review copy to `output/pdf/`, the served copy to `public/`, and the optional PDF basename in `downloadFilename`. It rejects page overflow and uses deterministic PDF metadata. Review the rendered PDF before publishing changes.
+
+For offline content, hyperlink, single-page and reproducibility checks:
+
+```bash
+python3 -m pip install pypdf
+python3 scripts/test-resume.py
+```
+
+These checks do not certify public URL availability, application functionality or applicant-tracking-system parsing. The application note and tailoring rationale are in `docs/SQUOOSH_APPLICATION.md`. Review variant-specific test expectations whenever deliberately retargeting the resume.
